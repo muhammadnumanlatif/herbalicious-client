@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Container, Row, Col, Card, Button, Badge, Form, InputGroup } from 'react-bootstrap';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaFilter, FaShoppingBag, FaArrowRight, FaStar } from 'react-icons/fa';
@@ -10,7 +10,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Product } from '@/src/types';
 import { useCart } from '@/context/CartContext';
 
-export default function ShopClient({ initialProducts }: { initialProducts: Product[] }) {
+function ShopContent({ initialProducts }: { initialProducts: Product[] }) {
     const { addToCart } = useCart();
     const MotionDiv = motion.div as any;
     const searchParams = useSearchParams();
@@ -156,5 +156,13 @@ export default function ShopClient({ initialProducts }: { initialProducts: Produ
                 </Row>
             </Container>
         </div>
+    );
+}
+
+export default function ShopClient({ initialProducts }: { initialProducts: Product[] }) {
+    return (
+        <Suspense fallback={<div className="text-center py-5">Loading Shop...</div>}>
+            <ShopContent initialProducts={initialProducts} />
+        </Suspense>
     );
 }
