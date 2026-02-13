@@ -35,10 +35,12 @@ const nicheToProduct: Record<string, string> = {
 
 export default function CityLandingClient({ niche, city, products }: { niche: any, city: any, products: any[] }) {
     const [isLoading, setIsLoading] = useState(true);
-    const [viewCount] = useState(Math.floor(Math.random() * (120 - 45 + 1)) + 45);
-    const [orderCount] = useState(Math.floor(Math.random() * (15 - 3 + 1)) + 3);
+    const [viewCount, setViewCount] = useState(85); // Safe default
 
     useEffect(() => {
+        // Client-side randomization to avoid hydration mismatch
+        setViewCount(Math.floor(Math.random() * (120 - 45 + 1)) + 45);
+
         const timer = setTimeout(() => setIsLoading(false), 300);
         return () => clearTimeout(timer);
     }, []);
