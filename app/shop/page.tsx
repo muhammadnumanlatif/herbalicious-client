@@ -30,7 +30,7 @@ export default async function ShopPage() {
         return {
             id: p.id || p.slug,
             name: p.title || p.name,
-            image: p.featuredImage?.node?.sourceUrl || p.image || '/Products/Herbalicious Shop.png',
+            image: p.featuredImage?.node?.sourceUrl || p.image || '/Products/Herbalicious Shop.webp',
             price: p.price || 'Contact for Price',
             numericPrice: numericPrice,
             category: p.category || 'All',

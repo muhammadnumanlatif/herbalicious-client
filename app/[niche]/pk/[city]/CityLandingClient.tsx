@@ -141,7 +141,8 @@ export default function CityLandingClient({ niche, city, products }: { niche: an
                         <MotionDiv className="position-relative">
                             <Card className="rounded-5 overflow-hidden border-0 shadow-lg">
                                 <Card.Img
-                                    src={products.find(p => p.id === nicheToProduct[niche.id])?.image || `/Products/Herbalicious Shop.png`}
+                                    src={products.find(p => p.id === nicheToProduct[niche.id])?.image || `/Products/Herbalicious Shop.webp`}
+                                    onError={(e) => { e.currentTarget.src = '/Products/Herbalicious Shop.webp'; }}
                                     alt={`${niche.product} in ${city.name}`}
                                     style={{ height: '500px', objectFit: 'cover' }}
                                 />

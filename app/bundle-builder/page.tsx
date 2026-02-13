@@ -33,7 +33,7 @@ export default function BundleBuilder() {
     return (
         <div className="bundle-builder-page pb-5">
             <div className="bg-primary text-white py-5 mb-5 text-center position-relative overflow-hidden">
-                <div className="position-absolute top-0 start-0 w-100 h-100 opacity-10" style={{ background: 'url("/Products/Herbalicious Shop.png") center/cover' }}></div>
+                <div className="position-absolute top-0 start-0 w-100 h-100 opacity-10" style={{ background: 'url("/Products/Herbalicious Shop.webp") center/cover' }}></div>
                 <Container className="position-relative">
                     <Badge bg="light" text="primary" className="mb-3 px-3 py-2 rounded-pill">Limited Time Offer</Badge>
                     <h1 className="display-3 fw-bold mb-3">Artisan <span className="text-white-50">Bundle Builder</span></h1>
