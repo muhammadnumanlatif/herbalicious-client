@@ -1,0 +1,21 @@
+{
+    "name": "Herbalicious | Natural Organic Skincare",
+    "short_name": "Herbalicious",
+    "description": "Purest organic skincare and hair care products handcrafted in Lahore.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#566d15",
+    "icons": [
+        {
+            "src": "/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

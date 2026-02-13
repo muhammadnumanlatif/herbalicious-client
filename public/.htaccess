@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Handle Next.js Static Export URLs
+  # If the request is not a directory and doesn't have an extension
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+
+  # 3. Custom 404 Page
+  ErrorDocument 404 /404/index.html
+</IfModule>
+
+# Handle environment variables if needed
+# SetEnv WORDPRESS_API_URL https://cms.herbalicious-shop.com/graphql

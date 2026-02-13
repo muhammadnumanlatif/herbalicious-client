@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Aisha K.",
+        "location": "Lahore",
+        "content": "The hibiscus shampoo completely transformed my dry, frizzy hair! It's so much softer and manageable now. A must-try!",
+        "productId": "hibiscus-shampoo"
+    },
+    {
+        "name": "Bilal M.",
+        "location": "Karachi",
+        "content": "I've struggled with oily skin for years. The activated charcoal soap has been a game changer. My skin feels clean and balanced.",
+        "productId": "charcoal-soap"
+    },
+    {
+        "name": "Fatima R.",
+        "location": "Islamabad",
+        "content": "This is hands down the best organic hair oil I've used. My hair fall has significantly reduced in just a few weeks.",
+        "productId": "miracle-hair-oil"
+    },
+    {
+        "name": "Saad A.",
+        "location": "Lahore",
+        "content": "As someone with sensitive skin, finding a natural soap that doesn't irritate is tough. The Neem soap is gentle yet effective.",
+        "productId": "charcoal-soap"
+    },
+    {
+        "name": "Zainab S.",
+        "location": "Faisalabad",
+        "content": "The rose glow soap is pure luxury! The scent is incredible and it leaves my skin feeling so soft and hydrated. It's my daily aromatherapy.",
+        "productId": "lemon-tangerine-soap"
+    },
+    {
+        "name": "Omar F.",
+        "location": "Rawalpindi",
+        "content": "The coffee scrub soap is the perfect exfoliator. It's invigorating in the morning and leaves my skin incredibly smooth.",
+        "productId": "charcoal-soap"
+    },
+    {
+        "name": "Hira T.",
+        "location": "Multan",
+        "content": "The Amla shampoo actually promotes new hair growth. I can see baby hairs after a month of use. So happy with this.",
+        "productId": "amla-reetha-shampoo"
+    },
+    {
+        "name": "Imran G.",
+        "location": "Gujranwala",
+        "content": "The sandalwood soap has such a calming, classic scent. A high-quality, made in Pakistan soap that I'm proud to use.",
+        "productId": "charcoal-soap"
+    },
+    {
+        "name": "Sana J.",
+        "location": "Peshawar",
+        "content": "My skin has never felt softer. The Ubtan soap gives a natural glow and smells heavenly. Absolutely recommended!",
+        "productId": "papaya-soap"
+    },
+    {
+        "name": "Ali H.",
+        "location": "Quetta",
+        "content": "It's fantastic to see a local brand that competes with international quality. Proud to support Herbalicious.",
+        "productId": "anniversary-bundle"
+    },
+    {
+        "name": "Maryam N.",
+        "location": "Sialkot",
+        "content": "The Miracle Hair Oil truly lives up to its name. My hair is thicker, shinier, and feels so much healthier.",
+        "productId": "miracle-hair-oil"
+    },
+    {
+        "name": "Kamran B.",
+        "location": "Hyderabad",
+        "content": "The scent of the lavender soap is incredibly relaxing. It's the perfect way to unwind after a long day.",
+        "productId": "calendula-soap"
+    },
+    {
+        "name": "Nida W.",
+        "location": "Sargodha",
+        "content": "Finally, a natural shampoo that doesn’t strip my hair of its natural oils. My scalp feels healthier than ever.",
+        "productId": "hibiscus-shampoo"
+    },
+    {
+        "name": "Ayesha I.",
+        "location": "Lahore",
+        "content": "I get so many compliments on how healthy my hair looks now. All thanks to their organic hair care range.",
+        "productId": "miracle-hair-oil"
+    },
+    {
+        "name": "Yasir M.",
+        "location": "Karachi",
+        "content": "My wife loves the Rose Glow soap. It makes the whole bathroom smell like a fresh garden. A small luxury we both enjoy.",
+        "productId": "lemon-tangerine-soap"
+    }
+]

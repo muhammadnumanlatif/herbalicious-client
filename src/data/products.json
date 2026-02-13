@@ -1,0 +1,484 @@
+[
+    {
+        "id": "amla-reetha-shampoo",
+        "name": "Herbalicious Amla Reetha (Organic Shampoo)",
+        "price": "₨ 1,000",
+        "oldPrice": "₨ 1,500",
+        "category": "Organic Shampoo",
+        "shortDescription": "Promotes long & shiny hair, nourishes scalp.",
+        "description": "Unlock the power of nature with Amla Reetha Shampoo. Strengthens hair follicles, stimulates growth, and imparts a lustrous shine. Suitable for all hair types.",
+        "image": "/Products/Amla Reetha Shampoo.webp",
+        "attributes": {
+            "Weight": "50ml, 100ml",
+            "pH Balanced": "Yes",
+            "Sulfate Free": "Yes"
+        },
+        "suitableFor": "All hair types, especially thinning and dull hair.",
+        "keyActives": [
+            "Organic Amla Extract",
+            "Natural Reetha (Soapnut)",
+            "Aloe Vera Juice"
+        ],
+        "safetyProfile": "Paraben-Free, Sulfate-Free, No Synthetic Fragrances, Cruelty-Free.",
+        "proTip": "For best results, leave the shampoo on your scalp for 2 minutes before rinsing to allow the Amla nutrients to penetrate deep into the roots."
+    },
+    {
+        "id": "aloe-vera-soap",
+        "name": "Herbalicious Aloe Vera Soap (Organic Soap)",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Hydrating and soothing organic soap.",
+        "description": "Packed with hydrating and soothing properties of aloe vera. Benefits: Hydration, soothing relief for irritated skin, and anti-aging antioxidants.",
+        "image": "/Products/Aloe vera  Organic Soap.webp",
+        "attributes": {
+            "Weight": "110g",
+            "Handmade": "Yes"
+        },
+        "suitableFor": "Dry, sensitive, and sun-damaged skin.",
+        "keyActives": [
+            "Pure Aloe Vera Gel",
+            "Coconut Oil",
+            "Essential Oils"
+        ],
+        "safetyProfile": "100% Vegan, Chemical-Free, Biodegradable.",
+        "proTip": "Use cool water when rinsing to seal in the hydration provided by the Aloe Vera."
+    },
+    {
+        "id": "miracle-hair-oil",
+        "name": "Herbalicious Miracle Organic Hair Oil",
+        "price": "₨ 900",
+        "oldPrice": "₨ 1,500",
+        "category": "Organic Hair Oil",
+        "shortDescription": "Potent blend for hair revitalization.",
+        "description": "Miracle Organic Hair Oil revitalizes hair from root to tip. Castor oil and herb-flower blend stimulates the scalp for thicker, longer, and more lustrous hair.",
+        "image": "/Products/Miracle Hair Oil – 11 Herb & Flower Blend.webp",
+        "attributes": {
+            "Weight": "50ml, 100ml",
+            "Herbs Count": "11 Potent Herbs"
+        },
+        "suitableFor": "Hair fall, premature greying, and scalp dryness.",
+        "keyActives": [
+            "Castor Oil",
+            "Rosemary",
+            "Hibiscus Extract",
+            "Amla Oil"
+        ],
+        "safetyProfile": "Cold-Pressed, Mineral Oil Free, No Artificial Colors.",
+        "proTip": "Apply the oil at night and wrap your hair in a warm towel for 15 minutes to boost absorption before sleeping."
+    },
+    {
+        "id": "goat-milk-soap",
+        "name": "Herbalicious Goat Milk Soap (Organic Soap)",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Gentle cleansing for sensitive skin.",
+        "description": "Rich in vitamins, minerals, and lactic acid. Provides deep hydration, gentle exfoliation, and relief for eczema or psoriasis.",
+        "image": "/Products/Herbalicious Goat To Be Clean(Goat Milk Soap) organic soap, Handmade Goat Milk Soap.webp",
+        "attributes": {
+            "Weight": "110g",
+            "Curing Time": "4-6 Weeks"
+        },
+        "suitableFor": "Eczema-prone, sensitive, and mature skin.",
+        "keyActives": [
+            "Fresh Goat Milk",
+            "Raw Honey",
+            "Organic Olive Oil"
+        ],
+        "safetyProfile": "Hypoallergenic, Lactic Acid Rich, No Synthetic Detergents.",
+        "proTip": "The lactic acid in Goat Milk needs a moment to work. Massage the lather on your face for 30 seconds before rinsing for a brighter complexion."
+    },
+    {
+        "id": "honey-oats-soap",
+        "name": "Herbalicious Honey & Oats Soap",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Exfoliating and moisturizing.",
+        "description": "A soothing blend of honey and oats for gentle exfoliation and deep moisture. Perfect for dry skin.",
+        "image": "/Products/Herbalicious Honey I’m Home (Honey and Oats Soap) Organic Soap, Handmade Honey Oats Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Dry, flaky skin needing gentle exfoliation.",
+        "keyActives": [
+            "Colloidal Oatmeal",
+            "Raw Village Honey",
+            "Shea Butter"
+        ],
+        "safetyProfile": "Natural Exfoliant, No Microbeads, Fragrance-Free.",
+        "proTip": "This soap is excellent as a 'body mask'. Apply to rough areas like elbows and let it sit while you finish your shower routine."
+    },
+    {
+        "id": "charcoal-soap",
+        "name": "Herbalicious Charcoal Soap (Organic Soap)",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Deep detoxification for oily skin.",
+        "description": "Activated charcoal draws out dirt and oil. Regulates sebum and provides gentle exfoliation for acne-prone skin.",
+        "image": "/Products/Handmade Charcoal Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Oily, acne-prone skin and urban residents exposed to pollution.",
+        "keyActives": [
+            "Activated Bamboo Charcoal",
+            "Tea Tree Essential Oil",
+            "Peppermint"
+        ],
+        "safetyProfile": "Detoxifying, Non-Comedogenic, Antiseptic.",
+        "proTip": "Ideal for after-gym showers to pull out sweat-induced toxins and prevent breakouts."
+    },
+    {
+        "id": "vitamin-c-serum",
+        "name": "Vitamin C Serum for Brightening",
+        "price": "₨ 1,200",
+        "oldPrice": "₨ 2,400",
+        "category": "Skin Care",
+        "shortDescription": "Brightening serum for radiant skin.",
+        "description": "Infused with Vitamin C for skin brightening and hydration. Reduces dark spots and promotes even skin tone.",
+        "image": "/Products/Herbalicious Vitamin C Serum.webp",
+        "attributes": {
+            "Weight": "30ml"
+        },
+        "suitableFor": "Hyperpigmentation, dullness, and early signs of aging.",
+        "keyActives": [
+            "L-Ascorbic Acid (Stable)",
+            "Hyaluronic Acid",
+            "Ferulic Acid"
+        ],
+        "safetyProfile": "pH Balanced, Silicone-Free, Cruelty-Free.",
+        "proTip": "Always follow with SPF during the day, as Vitamin C and sun protection work together to fight UV damage."
+    },
+    {
+        "id": "pure-moringa-powder",
+        "name": "Pure Moringa Powder",
+        "price": "₨ 1,000",
+        "oldPrice": "₨ 2,000",
+        "category": "Wellness",
+        "shortDescription": "Organic moringa for health boost.",
+        "description": "Organic pure moringa powder for energy and immunity boost. Rich in antioxidants and essential nutrients.",
+        "image": "/Products/Herbalicious Pure Moringa Powder.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Boosting immunity, energy recovery, and nutritional support.",
+        "keyActives": [
+            "100% Dried Moringa Leaves"
+        ],
+        "safetyProfile": "Food Grade, No Fillers, Gluten-Free.",
+        "proTip": "Add to your morning green smoothie or mix with honey for a quick, natural energy lift."
+    },
+    {
+        "id": "magnesium-spray",
+        "name": "Natural Magnesium Spray",
+        "price": "₨ 1,200",
+        "category": "Wellness",
+        "shortDescription": "Topical magnesium for sleep and stress.",
+        "description": "A direct way to replenish magnesium levels. Helps with muscle relaxation, sleep quality, and stress reduction.",
+        "image": "/Products/Natural Magnesium Spray.webp",
+        "attributes": {
+            "Weight": "100ml"
+        },
+        "suitableFor": "Insomnia, leg cramps, anxiety, and post-workout recovery.",
+        "keyActives": [
+            "Magnesium Chloride",
+            "Lavender Essential Oil"
+        ],
+        "safetyProfile": "Transdermal Grade, Non-Greasy, Fast Absorbing.",
+        "proTip": "Spray on the soles of your feet 20 minutes before bed. This is the fastest way for magnesium to enter your system."
+    },
+    {
+        "id": "hibiscus-shampoo",
+        "name": "Herbalicious Hibiscus Shampoo",
+        "price": "₨ 1,000",
+        "category": "Organic Shampoo",
+        "shortDescription": "Volume boosting and scalp cooling.",
+        "description": "Enriched with Hibiscus extracts to prevent premature graying and boost hair volume. Provides a cooling sensation for the scalp.",
+        "image": "/Products/Hibiscus Shampoo.webp",
+        "attributes": {
+            "Weight": "100ml",
+            "Sulfate Free": "Yes"
+        },
+        "suitableFor": "Thinning hair, premature graying, and heated scalps.",
+        "keyActives": [
+            "Hibiscus Flower Extract",
+            "Aloe Vera",
+            "Mild Organic Cleansers"
+        ],
+        "safetyProfile": "Sulfate-Free, Paraben-Free, Color-Safe.",
+        "proTip": "Massage into scalp for 3 minutes to stimulate blood flow."
+    },
+    {
+        "id": "calendula-soap",
+        "name": "Handmade Calendula Soap",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Healing and gentle for delicate skin.",
+        "description": "Infused with healing Calendula petals. Known for its anti-inflammatory and antiseptic properties, perfect for sensitive or irritated skin.",
+        "image": "/Products/Handmade Calendula Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Sensitive skin, diaper rash prone skin, and minor cuts.",
+        "keyActives": [
+            "Calendula Petals",
+            "Olive Oil",
+            "Shea Butter"
+        ],
+        "safetyProfile": "Fragrance-Free Option Available, Ultra-Gentle.",
+        "proTip": "Excellent for washing baby's clothes or skin due to its mildness."
+    },
+    {
+        "id": "coconut-castor-soap",
+        "name": "Coconut Soap with Castor Oil",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Deep cleansing and ultra-lathering.",
+        "description": "A rich lathering soap that deep cleanses while moisturizing. Castor oil ensures skin remains soft and supple.",
+        "image": "/Products/Handmade Coconut Soap with Castor Oil.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "All skin types, especially rough skin.",
+        "keyActives": [
+            "Virgin Coconut Oil",
+            "Castor Oil"
+        ],
+        "safetyProfile": "100% Vegan, High Lather, Detoxifying.",
+        "proTip": "Great for shaving due to its thick, creamy lather."
+    },
+    {
+        "id": "lemon-tangerine-soap",
+        "name": "Lemon & Tangerine Soap",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Energizing citrus burst for dull skin.",
+        "description": "A refreshing blend of Lemon and Tangerine essential oils. Brightens dull skin and uplifts your mood with every wash.",
+        "image": "/Products/Handmade Lemon & Tangerine Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Oily skin, dull complexion, and morning showers.",
+        "keyActives": [
+            "Lemon Peel Oil",
+            "Tangerine Extract",
+            "Vitamin C"
+        ],
+        "safetyProfile": "Citrus-Based, Natural Astrigent.",
+        "proTip": "Use in the morning for an instant wake-up call for your skin and senses."
+    },
+    {
+        "id": "frankincense-calendula-body-butter",
+        "name": "Nourishing Body Butter",
+        "price": "₨ 1,500",
+        "category": "Body Care",
+        "shortDescription": "Intense moisture with Frankincense & Calendula.",
+        "description": "A luxurious, thick body butter that heals cracked skin and locks in moisture for 24 hours. Infused with the royal scent of Frankincense.",
+        "image": "/Products/Handmade Nourishing Body Butter with Frankincense & Calendula.webp",
+        "attributes": {
+            "Weight": "100g"
+        },
+        "suitableFor": "Very dry skin, cracked heels, and elbows.",
+        "keyActives": [
+            "Frankincense Resin",
+            "Calendula Oil",
+            "Cocoa Butter"
+        ],
+        "safetyProfile": "Preservative-Free, deeply restorative.",
+        "proTip": "Apply immediately after a shower while skin is still damp to seal in moisture."
+    },
+    {
+        "id": "pink-salt-soap",
+        "name": "Pink Himalayan Salt Soap",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Mineral-rich detox bar.",
+        "description": "Packed with 84 trace minerals from Himalayan Pink Salt. Exfoliates dead skin cells and detoxifies the body.",
+        "image": "/Products/Handmade Pink Himalayan Salt Soap.webp",
+        "attributes": {
+            "Weight": "120g"
+        },
+        "suitableFor": "Body acne, rough skin texture.",
+        "keyActives": [
+            "Himalayan Pink Salt",
+            "Coconut Oil"
+        ],
+        "safetyProfile": "Physical Exfoliant, Mineral Rich.",
+        "proTip": "Rub the bar directly on your skin for a spa-like salt scrub massage."
+    },
+    {
+        "id": "turmeric-papaya-soap",
+        "name": "Turmeric & Papaya Soap",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Brightening and complexion evening.",
+        "description": "The dynamic duo of Turmeric and Papaya targets glowing skin. Papaya enzymes gently exfoliate while Turmeric fights inflammation.",
+        "image": "/Products/Handmade Turmeric & Papaya Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Dark spots, uneven skin tone, and acne scars.",
+        "keyActives": [
+            "Wild Turmeric",
+            "Papaya Extract",
+            "Vitamin E"
+        ],
+        "safetyProfile": "Natural Brightener, Anti-Inflammatory.",
+        "proTip": "Leave the lather on pigmented areas for 60 seconds before washing off."
+    },
+    {
+        "id": "eucalyptus-soap",
+        "name": "Eucalpyt-Ease Wash (Eucalyptus Soap)",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Muscle relief and sinus clearing.",
+        "description": "A cooling soap that helps clear nasal congestion and relaxes soothing muscles. Perfect after a long day.",
+        "image": "/Products/Herbalicious Eucalpyt-Ease Wash(Eucalyptus Soap) organic soap, Handmade Eucalyptus Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Post-workout, cold/flu season, and fatigue.",
+        "keyActives": [
+            "Eucalyptus Oil",
+            "Menthol Crystals"
+        ],
+        "safetyProfile": "Cooling Sensation, Antibacterial.",
+        "proTip": "Inhale the steam while showering with this soap to help clear sinuses."
+    },
+    {
+        "id": "hair-serum",
+        "name": "Herbalicious Hair Serum",
+        "price": "₨ 1,200",
+        "category": "Hair Care",
+        "shortDescription": "Frizz control and shine.",
+        "description": "A lightweight, non-greasy formula that tames frizz, adds shine, and protects hair from heat damage.",
+        "image": "/Products/Herbalicious Hair Serum.webp",
+        "attributes": {
+            "Weight": "50ml"
+        },
+        "suitableFor": "Frizzy, dry, and unmanageable hair.",
+        "keyActives": [
+            "Argan Oil",
+            "Vitamin E",
+            "Silk Proteins"
+        ],
+        "safetyProfile": "Silicone-Alternative, Heat Proctectant.",
+        "proTip": "Apply to damp ends before blow-drying for a professional salon finish."
+    },
+    {
+        "id": "hibiscus-soap",
+        "name": "Hibis-Scrub (Hibiscus Soap)",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Skin firming and anti-aging.",
+        "description": "Known as the 'Botox plant', Hibiscus helps firm the skin and improve elasticity. Provides a gentle floral cleanse.",
+        "image": "/Products/Herbalicious Hibis-Scrub(Hibiscus Soap) Organic Soap, Handmade Hibiscus Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Aging skin, loose skin.",
+        "keyActives": [
+            "Hibiscus Flower Powder",
+            "Rose Geranium Oil"
+        ],
+        "safetyProfile": "Natural AHA source, Skin Tightening.",
+        "proTip": "Use consistently for firmer looking skin over time."
+    },
+    {
+        "id": "hydrating-balm",
+        "name": "Herbalicious Hydrating Balm",
+        "price": "₨ 650",
+        "category": "Lip Care",
+        "shortDescription": "Multi-purpose SOS balm.",
+        "description": "A pocket-sized miracle for dry patches, lips, and cuticles. Instantly relieves dryness anywhere on the body.",
+        "image": "/Products/Herbalicious Hydrating Balm.webp",
+        "attributes": {
+            "Weight": "15g"
+        },
+        "suitableFor": "Chapped lips, dry cuticles, rough knees.",
+        "keyActives": [
+            "Beeswax",
+            "Sweet Almond Oil",
+            "Vitamin E"
+        ],
+        "safetyProfile": "Petroleum-Free, 100% Natural.",
+        "proTip": "Keep in your bag for on-the-go hydration emergencies."
+    },
+    {
+        "id": "turmeric-tea-tree-soap",
+        "name": "Turmeric Tingle (Turmeric & Tea Tree)",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Anti-bacterial acne fighter.",
+        "description": "A potent combination of Turmeric and Tea Tree to fight acne-causing bacteria and reduce inflammation.",
+        "image": "/Products/Herbalicious Turmeric Tingle(Turmeric Soap) Organic Soap, Handmade Turmeric & Tea Tree Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Active acne, cystic acne.",
+        "keyActives": [
+            "Tea Tree Oil",
+            "Wild Turmeric Root"
+        ],
+        "safetyProfile": "Anti-Fungal, Anti-Bacterial.",
+        "proTip": "Spot wash acne-prone areas twice daily for best results."
+    },
+    {
+        "id": "makhana-coconut-powder",
+        "name": "Makhana & Coconut Powder",
+        "price": "₨ 1,200",
+        "category": "Wellness",
+        "shortDescription": "Superfood energy mix.",
+        "description": "A traditional power blend of Fox Nuts (Makhana) and Coconut. Supports bone health and provides sustained energy.",
+        "image": "/Products/Makhana & Coconut Powder.webp",
+        "attributes": {
+            "Weight": "200g"
+        },
+        "suitableFor": "Post-partum recovery, growing kids, seniors.",
+        "keyActives": [
+            "Phool Makhana",
+            "Desiccated Coconut",
+            "Dry Fruits"
+        ],
+        "safetyProfile": "High Calcium, No Added Sugar.",
+        "proTip": "Mix into warm milk for a nutritious night-cap."
+    },
+    {
+        "id": "tulsi-soap",
+        "name": "Tulsi Organic Soap",
+        "price": "₨ 950",
+        "category": "Organic Soap",
+        "shortDescription": "Purifying and anti-fungal.",
+        "description": "Basil (Tulsi) is revered for its purifying properties. Cleanses the skin of impurities and protects against fungal infections.",
+        "image": "/Products/Tulsi Organic Soap.webp",
+        "attributes": {
+            "Weight": "110g"
+        },
+        "suitableFor": "Fungal infections, itchiness, body acne.",
+        "keyActives": [
+            "Holy Basil Extract",
+            "Neem Oil"
+        ],
+        "safetyProfile": "Ayurvedic Formulation, Anti-bacterial.",
+        "proTip": "Great for sweaty summer days to keep skin fresh and infection-free."
+    },
+    {
+        "id": "strawberry-lip-balm",
+        "name": "Strawberry Lip Balm",
+        "price": "₨ 350",
+        "category": "Lip Care",
+        "shortDescription": "Yummy hydration for lips.",
+        "description": "A sweet, hydrating treat for your lips. Made with real strawberry extracts and organic beeswax.",
+        "image": "/Products/strawberry-lip-balm.webp",
+        "attributes": {
+            "Weight": "10g"
+        },
+        "suitableFor": "Dry, dark lips.",
+        "keyActives": [
+            "Strawberry Extract",
+            "Beeswax",
+            "Shea Butter"
+        ],
+        "safetyProfile": "Edible Ingredients, Tint-Free.",
+        "proTip": "Apply under matte lipstick to prevent drying."
+    }
+]

@@ -1,0 +1,39 @@
+{
+    "name": "herbalicious-shop",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "vite:dev": "vite",
+        "vite:build": "vite build",
+        "sitemap": "node scripts/generate-sitemaps.js",
+        "prebuild": "npm run sitemap",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.8",
+        "framer-motion": "^12.34.0",
+        "next": "^16.1.6",
+        "react": "^19.2.4",
+        "react-bootstrap": "^2.10.10",
+        "react-dom": "^19.2.4",
+        "react-helmet-async": "^2.0.4",
+        "react-icons": "^5.5.0",
+        "react-router-dom": "^6.22.3"
+    },
+    "devDependencies": {
+        "@types/node": "^25.2.3",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0",
+        "@vitejs/plugin-react": "^4.2.1",
+        "eslint": "^8.57.0",
+        "eslint-plugin-react": "^7.34.1",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.6",
+        "typescript": "^5.9.3",
+        "vite": "^5.2.0"
+    }
+}

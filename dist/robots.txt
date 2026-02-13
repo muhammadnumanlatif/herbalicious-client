@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://herbalicious-shop.com/sitemap_index.xml
+
+# Crawl Delay to manage budget
+Crawl-delay: 10
