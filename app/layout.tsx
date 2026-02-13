@@ -100,7 +100,6 @@ export default function RootLayout({
                         <SocialProofToast />
                         <ExitIntentModal />
                         <MobileBottomNav />
-                        <FloatingWhatsApp />
                         <FloatingBar />
                         <BackToTop />
                         <CommandPalette />
