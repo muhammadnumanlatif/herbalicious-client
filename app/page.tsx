@@ -1,5 +1,5 @@
 import HomeClient from '@/components/HomeClient';
-import { getPageBySlug } from '@/lib/wordpress.ts';
+import { getPageBySlug } from '@/lib/wordpress';
 import FAQSchema from '@/components/FAQSchema';
 import { globalFAQs } from '@/src/data/faqs';
 
