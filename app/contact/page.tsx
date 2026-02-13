@@ -85,6 +85,49 @@ export default function ContactPage() {
                     </Col>
                 </Row>
 
+                <Row className="justify-content-center mb-5">
+                    <Col lg={8}>
+                        <Card className="border-0 shadow-lg rounded-5 overflow-hidden">
+                            <Card.Body className="p-5">
+                                <h3 className="fw-bold text-center mb-4">Send us a Message</h3>
+                                <form action="https://formspree.io/f/xeelayew" method="POST">
+                                    <Row className="g-3">
+                                        <Col md={6}>
+                                            <div className="form-floating">
+                                                <input type="text" className="form-control rounded-4" id="name" name="name" placeholder="Your Name" required />
+                                                <label htmlFor="name">Your Name</label>
+                                            </div>
+                                        </Col>
+                                        <Col md={6}>
+                                            <div className="form-floating">
+                                                <input type="email" className="form-control rounded-4" id="email" name="email" placeholder="Your Email" required />
+                                                <label htmlFor="email">Your Email</label>
+                                            </div>
+                                        </Col>
+                                        <Col xs={12}>
+                                            <div className="form-floating">
+                                                <input type="text" className="form-control rounded-4" id="subject" name="subject" placeholder="Subject" required />
+                                                <label htmlFor="subject">Subject</label>
+                                            </div>
+                                        </Col>
+                                        <Col xs={12}>
+                                            <div className="form-floating">
+                                                <textarea className="form-control rounded-4" placeholder="Leave a message here" id="message" name="message" style={{ height: '150px' }} required></textarea>
+                                                <label htmlFor="message">Your Message</label>
+                                            </div>
+                                        </Col>
+                                        <Col xs={12}>
+                                            <Button type="submit" size="lg" className="w-100 rounded-pill fw-bold py-3 mt-2">
+                                                Send Message
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </form>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+
                 <MotionDiv
                     className="p-5 bg-dark text-white rounded-5 text-center shadow-lg position-relative overflow-hidden"
                     initial={{ opacity: 0 }}

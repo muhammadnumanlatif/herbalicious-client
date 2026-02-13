@@ -53,9 +53,10 @@ export default function Footer() {
                     <Col lg={2} md={4} sm={6}>
                         <h5 className="fw-bold mb-4 dropdown-toggle-no-caret">Company</h5>
                         <ul className="list-unstyled d-flex flex-column gap-2">
-                            <li><Link href="/about-us" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">About Us</Link></li>
+                            <li><Link href="/legal/about-us" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">About Us</Link></li>
+                            <li><Link href="/bundle-builder" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Bundle Builder</Link></li>
                             <li><Link href="/ingredients" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Ingredients</Link></li>
-                            <li><Link href="/blogs" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Latest News</Link></li>
+                            <li><Link href="/blogs" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Insights Journal</Link></li>
                             <li><Link href="/contact" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Contact</Link></li>
                         </ul>
                     </Col>
@@ -63,8 +64,10 @@ export default function Footer() {
                     <Col lg={2} md={4} sm={6}>
                         <h5 className="fw-bold mb-4">Support</h5>
                         <ul className="list-unstyled d-flex flex-column gap-2">
-                            <li><Link href="/shipping-policy" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Shipping Policy</Link></li>
-                            <li><Link href="/privacy-policy" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Privacy Policy</Link></li>
+                            <li><Link href="/legal/shipping-policy" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Shipping Policy</Link></li>
+                            <li><Link href="/legal/privacy-policy" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Privacy Policy</Link></li>
+                            <li><Link href="/legal/terms-of-service" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Terms of Service</Link></li>
+                            <li><Link href="/legal/disclaimer" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Disclaimer</Link></li>
                             <li><Link href="/directory" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Directory</Link></li>
                             <li><a href="/Products/Herbalicious Catalogue .pdf" target="_blank" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">PDF Catalogue</a></li>
                         </ul>
@@ -72,28 +75,19 @@ export default function Footer() {
 
                     <Col lg={4} md={4} sm={12}>
                         <h5 className="fw-bold mb-4">Wellness Insider</h5>
-                        {subscribed ? (
-                            <Alert variant="success" className="py-2 small bg-primary border-0 text-white rounded-pill px-4">
-                                🎉 Welcome to the community!
-                            </Alert>
-                        ) : (
-                            <>
-                                <p className="text-light opacity-75 small mb-4">Join 5,000+ others receiving weekly organic wellness tips and exclusive offers.</p>
-                                <Form onSubmit={handleSubscribe} className="d-flex gap-2">
-                                    <Form.Control
-                                        type="email"
-                                        placeholder="Enter email"
-                                        required
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="bg-transparent border-secondary text-white rounded-pill px-3 shadow-none focus-primary"
-                                    />
-                                    <Button type="submit" variant="primary" className="rounded-circle p-0 d-flex align-items-center justify-content-center" style={{ width: '45px', height: '42px', minWidth: '45px' }}>
-                                        <FaArrowRight size={14} />
-                                    </Button>
-                                </Form>
-                            </>
-                        )}
+                        <p className="text-light opacity-75 small mb-4">Join 5,000+ others receiving weekly organic wellness tips and exclusive offers.</p>
+                        <form action="https://formspree.io/f/xeelayew" method="POST" className="d-flex gap-2">
+                            <Form.Control
+                                type="email"
+                                name="email"
+                                placeholder="Enter email"
+                                required
+                                className="bg-transparent border-secondary text-white rounded-pill px-3 shadow-none focus-primary"
+                            />
+                            <Button type="submit" variant="primary" className="rounded-circle p-0 d-flex align-items-center justify-content-center" style={{ width: '45px', height: '42px', minWidth: '45px' }}>
+                                <FaArrowRight size={14} />
+                            </Button>
+                        </form>
                     </Col>
                 </Row>
 
