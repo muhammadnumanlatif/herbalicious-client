@@ -113,7 +113,7 @@ export default function CartDrawer() {
                                     </div>
                                     <div className="d-flex align-items-center bg-white p-2 rounded-3 shadow-sm">
                                         <Image
-                                            src="/Products/Glow Serum.png"
+                                            src="/Products/Herbalicious Vitamin C Serum.webp"
                                             alt="Upsell"
                                             width={40}
                                             height={40}
