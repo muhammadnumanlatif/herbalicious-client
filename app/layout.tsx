@@ -13,14 +13,14 @@ export const metadata = {
     description: 'Shop Pakistan\'s purest organic skincare & hair care. Handcrafted goat milk soaps, amla reetha shampoos, & wellness serums. 100% natural, chemical-free solutions.',
     keywords: ['organic skincare pakistan', 'natural hair care', 'goat milk soap lahore', 'herbal shampoo pakistan', 'pure amla reetha shampoo', 'organic wellness stores'],
     authors: [{ name: 'Herbalicious' }],
-    metadataBase: new URL('https://herbalicious-shop.com'),
+    metadataBase: new URL('https://herbalicious-client.vercel.app'),
     alternates: {
         canonical: '/',
     },
     openGraph: {
         title: 'Herbalicious | Natural & Organic Skin & Hair Care in Pakistan',
         description: 'Purest organic skincare and hair care products. Handcrafted soaps, serums, and wellness solutions.',
-        url: 'https://herbalicious-shop.com',
+        url: 'https://herbalicious-client.vercel.app',
         siteName: 'Herbalicious',
         images: [
             {
