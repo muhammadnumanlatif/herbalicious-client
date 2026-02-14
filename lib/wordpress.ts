@@ -1,4 +1,4 @@
-const API_URL = process.env.WORDPRESS_API_URL || 'https://your-wordpress-site.com/graphql';
+const API_URL = process.env.WORDPRESS_API_URL || 'https://cms.herbalicious-shop.com/graphql';
 
 async function fetchAPI(query: string, { variables }: { variables?: any } = {}) {
     const headers = { 'Content-Type': 'application/json' };
