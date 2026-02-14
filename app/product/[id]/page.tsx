@@ -1,5 +1,8 @@
+import { Suspense } from 'react';
+import { Spinner } from 'react-bootstrap';
 import { getProductBySlug } from '@/lib/wordpress';
 import ProductClient from '@/components/ProductClient';
+import RelatedProducts from '@/components/RelatedProducts';
 import staticProducts from '@/src/data/products.json';
 import { productSEOInsights } from '@/src/data/seoInsights';
 import { Metadata } from 'next';
@@ -63,10 +66,6 @@ export default async function ProductDetailPage({ params }: Props) {
     const product = staticProducts.find(p => p.id === id);
     if (!product) return <div>Product Not Found</div>;
 
-    const relatedProducts = staticProducts
-        .filter(p => p.category === product.category && p.id !== product.id)
-        .slice(0, 4);
-
     const howToSteps = howToMap[id] || [
         { name: 'Apply', text: 'Apply a small amount to the desired area.' },
         { name: 'Massage', text: 'Gently massage in circular motions.' },
@@ -76,11 +75,24 @@ export default async function ProductDetailPage({ params }: Props) {
     const insight = productSEOInsights.find(si => si.productId === id);
 
     return (
-        <ProductClient
-            product={product}
-            relatedProducts={relatedProducts}
-            howToSteps={howToSteps}
-            insight={insight}
-        />
+        <>
+            <ProductClient
+                product={product}
+                relatedProducts={[]}
+                howToSteps={howToSteps}
+                insight={insight}
+            />
+
+            <div className="container pb-5">
+                <Suspense fallback={
+                    <div className="d-flex justify-content-center py-5">
+                        <Spinner animation="border" variant="success" />
+                    </div>
+                }>
+                    {/* @ts-expect-error Async Server Component */}
+                    <RelatedProducts category={product.category} currentId={product.id} />
+                </Suspense>
+            </div>
+        </>
     );
 }
