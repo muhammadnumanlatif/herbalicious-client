@@ -1,18 +1,24 @@
 const API_URL = process.env.WORDPRESS_API_URL || 'https://cms.herbalicious-shop.com/graphql';
 
-async function fetchAPI(query: string, { variables }: { variables?: any } = {}) {
+async function fetchAPI(query: string, { variables, revalidate, tags }: { variables?: any, revalidate?: number | false, tags?: string[] } = {}) {
     const headers = { 'Content-Type': 'application/json' };
 
     try {
-        const res = await fetch(API_URL, {
+        const fetchOptions: RequestInit = {
             method: 'POST',
             headers,
-            body: JSON.stringify({
-                query,
-                variables,
-            }),
-            next: { revalidate: 3600 } // Cache for 1 hour
-        });
+            body: JSON.stringify({ query, variables }),
+            next: {
+                revalidate: revalidate === false ? 0 : (revalidate ?? 3600),
+                tags
+            }
+        };
+
+        if (revalidate === false) {
+            fetchOptions.cache = 'no-store';
+        }
+
+        const res = await fetch(API_URL, fetchOptions);
 
         const json = await res.json();
         if (json.errors) {
@@ -32,6 +38,7 @@ async function fetchAPI(query: string, { variables }: { variables?: any } = {}) 
  * Note: You must register the 'products' CPT in WP and enable 'show_in_graphql' => true.
  */
 export async function getProducts() {
+    // Optimized: Only fetch fields needed for the Shop Grid / Listing
     const data = await fetchAPI(`
     query AllProducts {
       products(first: 100) {
@@ -44,17 +51,18 @@ export async function getProducts() {
               sourceUrl
             }
           }
-          # We use ACF or Custom Fields for price and details since no WooCommerce
           productFields {
             price
             shortDescription
-            stockStatus
             category
           }
         }
       }
     }
-  `);
+  `, {
+        tags: ['products'],
+        revalidate: 3600 // 1 hour default
+    });
 
     // Helper to format the data
     return data?.products?.nodes?.map((p: any) => ({
@@ -87,7 +95,11 @@ export async function getProductBySlug(slug: string) {
         }
       }
     }
-  `, { variables: { id: slug } });
+  `, {
+        variables: { id: slug },
+        tags: ['products', `product-${slug}`],
+        revalidate: 3600
+    });
 
     return data?.product;
 }
@@ -103,6 +115,8 @@ export async function getPageBySlug(slug: string) {
     }
   `, {
         variables: { id: slug, idType: 'URI' },
+        tags: ['pages', `page-${slug}`],
+        revalidate: 86400 // Daily for pages
     });
     return data?.page;
 }
