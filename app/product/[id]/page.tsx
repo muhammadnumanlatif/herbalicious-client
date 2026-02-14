@@ -1,3 +1,4 @@
+import { getProductBySlug } from '@/lib/wordpress';
 import ProductClient from '@/components/ProductClient';
 import staticProducts from '@/src/data/products.json';
 import { productSEOInsights } from '@/src/data/seoInsights';
@@ -28,14 +29,31 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id } = await params;
-    const product = staticProducts.find(p => p.id === id);
-    if (!product) return { title: 'Product Not Found' };
+
+    // Fetch dynamic SEO data from WordPress
+    const product = await getProductBySlug(id);
+
+    if (product?.seo) {
+        return {
+            title: product.seo.title || product.title,
+            description: product.seo.metaDesc,
+            openGraph: {
+                title: product.seo.opengraphTitle || product.title,
+                description: product.seo.opengraphDescription,
+                images: product.seo.opengraphImage?.sourceUrl ? [product.seo.opengraphImage.sourceUrl] : [],
+            },
+        };
+    }
+
+    // Fallback to static data if not in WP
+    const staticProduct = staticProducts.find(p => p.id === id);
+    if (!staticProduct) return { title: 'Product Not Found' };
 
     return {
-        title: `${product.name} | 100% Organic & Handmade | Herbalicious`,
-        description: product.shortDescription || product.description,
+        title: `${staticProduct.name} | 100% Organic & Handmade | Herbalicious`,
+        description: staticProduct.shortDescription || staticProduct.description,
         openGraph: {
-            images: [product.image],
+            images: [staticProduct.image],
         },
     };
 }

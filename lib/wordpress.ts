@@ -136,6 +136,15 @@ export async function getProductBySlug(slug: string) {
           attributes
           howToUse
         }
+        seo {
+           title
+           metaDesc
+           opengraphTitle
+           opengraphDescription
+           opengraphImage {
+              sourceUrl
+           }
+        }
       }
     }
   `, {
