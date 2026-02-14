@@ -1,5 +1,23 @@
 const API_URL = process.env.WORDPRESS_API_URL || 'https://cms.herbalicious-shop.com/graphql';
 
+const PRODUCT_CARD_FRAGMENT = `
+  fragment ProductCardFields on Product {
+    id
+    title
+    slug
+    featuredImage {
+      node {
+        sourceUrl
+      }
+    }
+    productFields {
+      price
+      shortDescription
+      category
+    }
+  }
+`;
+
 async function fetchAPI(query: string, { variables, revalidate, tags }: { variables?: any, revalidate?: number | false, tags?: string[] } = {}) {
     const headers = { 'Content-Type': 'application/json' };
 
@@ -38,24 +56,13 @@ async function fetchAPI(query: string, { variables, revalidate, tags }: { variab
  * Note: You must register the 'products' CPT in WP and enable 'show_in_graphql' => true.
  */
 export async function getProducts() {
-    // Optimized: Only fetch fields needed for the Shop Grid / Listing
+    // Optimized: Only fetch fields needed for the Shop Grid / Listing using Fragment
     const data = await fetchAPI(`
+    ${PRODUCT_CARD_FRAGMENT}
     query AllProducts {
       products(first: 100) {
         nodes {
-          id
-          title
-          slug
-          featuredImage {
-            node {
-              sourceUrl
-            }
-          }
-          productFields {
-            price
-            shortDescription
-            category
-          }
+          ...ProductCardFields
         }
       }
     }
@@ -74,6 +81,42 @@ export async function getProducts() {
         category: p.productFields?.category || 'General',
         shortDescription: p.productFields?.shortDescription || '',
     })) || [];
+}
+
+export async function getPaginatedProducts(first = 20, after: string | null = null) {
+    const data = await fetchAPI(`
+    ${PRODUCT_CARD_FRAGMENT}
+    query AllProducts($first: Int, $after: String) {
+      products(first: $first, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          ...ProductCardFields
+        }
+      }
+    }
+  `, {
+        variables: { first, after },
+        tags: ['products'],
+        revalidate: 3600
+    });
+
+    const products = data?.products?.nodes?.map((p: any) => ({
+        id: p.id,
+        name: p.title,
+        slug: p.slug,
+        image: p.featuredImage?.node?.sourceUrl || '/Products/placeholder.png',
+        price: p.productFields?.price || 'TBA',
+        category: p.productFields?.category || 'General',
+        shortDescription: p.productFields?.shortDescription || '',
+    })) || [];
+
+    return {
+        products,
+        pageInfo: data?.products?.pageInfo
+    };
 }
 
 export async function getProductBySlug(slug: string) {
