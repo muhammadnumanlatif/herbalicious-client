@@ -13,12 +13,16 @@ export const metadata: Metadata = {
 };
 
 export default async function ShopPage() {
-    let products = [];
+    let products: any[] = [];
     try {
         // Try fetching from WordPress first
         products = await getProducts();
     } catch (error) {
         console.warn('Failed to fetch products from WordPress, falling back to static data.');
+    }
+
+    // Fallback if WordPress returns empty array (e.g. not configured or optional)
+    if (!products || products.length === 0) {
         products = staticProducts;
     }
 
