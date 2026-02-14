@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-
+import { toast } from 'react-hot-toast';
 import { Product, CartItem } from '@/src/types';
 
 interface CartContextType {
@@ -41,6 +41,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }, [cart, isLoaded]);
 
     const addToCart = (product: Product) => {
+        toast.success(`Added ${product.name} to basket`, {
+            style: {
+                border: '1px solid #566d15',
+                padding: '16px',
+                color: '#566d15',
+            },
+            iconTheme: {
+                primary: '#566d15',
+                secondary: '#FFFAEE',
+            },
+        });
         setCart(prev => {
             const existing = prev.find(item => String(item.id) === String(product.id));
             if (existing) {

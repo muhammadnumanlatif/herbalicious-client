@@ -75,6 +75,7 @@ import BotanicalCursor from '@/components/BotanicalCursor';
 import SocialProofToast from '@/components/SocialProofToast';
 import ExitIntentModal from '@/components/ExitIntentModal';
 import GlobalSchema from '@/components/GlobalSchema';
+import { Toaster } from 'react-hot-toast';
 
 export default function RootLayout({
     children,
@@ -110,6 +111,21 @@ export default function RootLayout({
                     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                     strategy="afterInteractive"
                 />
+                <Toaster position="bottom-center" toastOptions={{
+                    style: {
+                        background: '#1a1a1a',
+                        color: '#fff',
+                        borderRadius: '50px',
+                        padding: '12px 24px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    },
+                    success: {
+                        iconTheme: {
+                            primary: '#566d15',
+                            secondary: '#fff',
+                        },
+                    },
+                }} />
             </body>
         </html>
     );
