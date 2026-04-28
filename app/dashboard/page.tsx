@@ -33,7 +33,7 @@ export default function DashboardPage() {
             <Card className="mt-5 border-0 shadow-sm p-4 rounded-4">
                 <h5 className="fw-bold mb-4">WordPress Sync Status</h5>
                 <div className="alert alert-info border-0 rounded-4">
-                    <strong>Headless Backend:</strong> Your Next.js frontend is connected to <code>{process.env.WORDPRESS_API_URL}</code>
+                    <strong>Backend:</strong> Your Next.js frontend is connected to local JSON data.
                 </div>
                 <p className="text-muted">
                     All changes made in the WordPress admin panel will be reflected on the Next.js site instantly via ISR/Incremental Static Regeneration.

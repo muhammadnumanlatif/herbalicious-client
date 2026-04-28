@@ -22,7 +22,6 @@ const nextConfig = {
     },
     // WordPress Headless specific optimizations
     env: {
-        WORDPRESS_API_URL: process.env.WORDPRESS_API_URL,
     },
 };
 

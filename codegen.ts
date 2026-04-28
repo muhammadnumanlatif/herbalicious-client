@@ -1,7 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-    schema: process.env.WORDPRESS_API_URL || 'https://cms.herbalicious-shop.com/graphql',
+    schema: 'https://cms.herbalicious-shop.com/graphql', // Keep static or remove entirely if not needed
     documents: ['lib/graphql/**/*.graphql'],
     generates: {
         './lib/gql/': {
