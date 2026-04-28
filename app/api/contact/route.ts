@@ -15,7 +15,7 @@ export async function POST(request: Request) {
         }
 
         const data = await resend.emails.send({
-            from: 'Herbalicious Contact <herbalicious-client.vercel.app>', // Update this with your verified domain
+            from: 'Herbalicious Contact <info@herbalicious-shop.com>', // Update this with your verified domain
             to: 'support@herbalicious-shop.com', // Update receiving email
             subject: `New Contact Form Submission: ${subject || 'No Subject'}`,
             replyTo: email,
