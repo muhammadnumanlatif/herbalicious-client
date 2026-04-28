@@ -3,15 +3,23 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { blogs } from '@/src/data/seoInsights';
 import { FaCalendarAlt, FaUser, FaTag } from 'react-icons/fa';
 
-export default function BlogDetailClient({ slug }: { slug: string }) {
-    const blog = blogs.find((b) => b.id === slug);
+interface BlogPost {
+    id: string;
+    title: string;
+    slug: string;
+    date: string;
+    excerpt: string;
+    content: string;
+    image: string;
+    author: string;
+    relatedProductId?: string | null;
+}
 
-    if (!blog) {
-        notFound();
+export default function BlogDetailClient({ post }: { post: BlogPost }) {
+    if (!post) {
+        return <div className="text-center py-5">Loading...</div>;
     }
 
     return (
@@ -21,7 +29,7 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
                 <div
                     className="position-absolute w-100 h-100"
                     style={{
-                        backgroundImage: `url(${blog.image})`,
+                        backgroundImage: `url(${post.image})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         filter: 'blur(4px) brightness(0.7)'
@@ -32,14 +40,14 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
                         <Col lg={10} className="mx-auto text-white">
                             <div className="d-flex align-items-center justify-content-center gap-3 mb-3">
                                 <span className="bg-primary px-3 py-1 rounded-pill small fw-bold">Wellness</span>
-                                <span>{new Date(blog.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                                <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                             </div>
-                            <h1 className="display-4 fw-bold mb-4">{blog.title}</h1>
+                            <h1 className="display-4 fw-bold mb-4">{post.title}</h1>
                             <div className="d-flex align-items-center justify-content-center gap-2">
                                 <div className="bg-white rounded-circle p-1" style={{ width: '32px', height: '32px' }}>
                                     <FaUser className="text-dark w-100 h-100 p-1" />
                                 </div>
-                                <span className="lead">{blog.author}</span>
+                                <span className="lead">{post.author}</span>
                             </div>
                         </Col>
                     </Row>
@@ -51,19 +59,21 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
                     <Col lg={8}>
                         {/* Article Content */}
                         <article className="blog-content mb-5 bg-white p-4 p-md-5 rounded-4 shadow-sm border">
-                            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+                            <div dangerouslySetInnerHTML={{ __html: post.content }} />
                         </article>
 
                         {/* Author/Tag Section */}
-                        <div className="d-flex align-items-center justify-content-between p-4 bg-light rounded-4 mb-5">
-                            <div className="d-flex align-items-center gap-3">
-                                <FaTag className="text-muted" />
-                                <span className="fw-bold text-dark">Related Product:</span>
-                                <Link href={`/product/${blog.relatedProductId}`} className="text-primary text-decoration-none hover-underline fw-bold">
-                                    {blog.relatedProductId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
-                                </Link>
+                        {post.relatedProductId && (
+                            <div className="d-flex align-items-center justify-content-between p-4 bg-light rounded-4 mb-5">
+                                <div className="d-flex align-items-center gap-3">
+                                    <FaTag className="text-muted" />
+                                    <span className="fw-bold text-dark">Related Product:</span>
+                                    <Link href={`/product/${post.relatedProductId}`} className="text-primary text-decoration-none hover-underline fw-bold">
+                                        {post.relatedProductId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                                    </Link>
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         {/* Navigation */}
                         <div className="text-center">

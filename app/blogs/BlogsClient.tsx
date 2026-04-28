@@ -3,10 +3,21 @@
 import React from 'react';
 import { Container, Row, Col, Card, Badge } from 'react-bootstrap';
 import Link from 'next/link';
-import { blogs } from '@/src/data/seoInsights';
+
+// import { blogs } from '@/src/data/seoInsights'; // Removed static import in favor of props
 import { FaCalendarAlt, FaUser, FaArrowRight } from 'react-icons/fa';
 
-export default function BlogsClient() {
+interface Blog {
+    id: string;
+    title: string;
+    slug: string;
+    date: string;
+    excerpt: string;
+    image: string;
+    author: string;
+}
+
+export default function BlogsClient({ posts }: { posts: Blog[] }) {
     return (
         <div className="blogs-page pt-5">
             {/* Hero Section */}
@@ -42,7 +53,7 @@ export default function BlogsClient() {
 
             <Container className="pb-5">
                 <Row className="g-4">
-                    {blogs.map((blog, idx) => (
+                    {posts.map((blog, idx) => (
                         <Col key={blog.id} lg={4} md={6}>
                             <Card className="h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-lift transition-all">
                                 <div className="position-relative overflow-hidden" style={{ height: '240px' }}>

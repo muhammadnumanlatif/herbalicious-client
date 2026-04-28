@@ -23,8 +23,8 @@ export default function Testimonials({ locationFilter }: TestimonialsProps) {
 
     // If not enough reviews for a specific location, pad with others
     const remainingCount = 9 - filteredReviews.length;
-    let otherReviews = reviews.filter(r => !filteredReviews.includes(r))
-        .sort(() => 0.5 - Math.random());
+    let otherReviews = reviews.filter(r => !filteredReviews.includes(r));
+    // .sort(() => 0.5 - Math.random()); // Removed to prevent Hydration Mismatch
 
     const displayReviews = [...filteredReviews, ...otherReviews.slice(0, Math.max(0, remainingCount))];
     const sliderRef = useRef<HTMLDivElement>(null);

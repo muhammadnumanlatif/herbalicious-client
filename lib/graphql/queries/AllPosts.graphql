@@ -1,0 +1,21 @@
+query AllPosts {
+  posts(first: 20) {
+    nodes {
+      id
+      title
+      slug
+      date
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      author {
+        node {
+          name
+        }
+      }
+    }
+  }
+}

@@ -89,7 +89,6 @@ export default async function ProductDetailPage({ params }: Props) {
                         <Spinner animation="border" variant="success" />
                     </div>
                 }>
-                    {/* @ts-expect-error Async Server Component */}
                     <RelatedProducts category={product.category} currentId={product.id} />
                 </Suspense>
             </div>

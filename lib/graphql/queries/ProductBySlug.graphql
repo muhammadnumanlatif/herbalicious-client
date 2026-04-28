@@ -1,0 +1,26 @@
+query ProductBySlug($id: ID!) {
+  product(id: $id, idType: SLUG) {
+    title
+    content
+    featuredImage {
+      node {
+        sourceUrl
+      }
+    }
+    productFields {
+      price
+      shortDescription
+      attributes
+      howToUse
+    }
+    seo {
+         title
+         metaDesc
+         opengraphTitle
+         opengraphDescription
+         opengraphImage {
+            sourceUrl
+         }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import ShopClient from '@/components/ShopClient';
 import { getProducts } from '@/lib/wordpress';
 import staticProducts from '@/src/data/products.json';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'Organic Shop | Natural Skincare & Hair Care Pakistan',
@@ -12,10 +13,12 @@ export const metadata: Metadata = {
     }
 };
 
-export default async function ShopPage() {
+async function ShopContent() {
     let products: any[] = [];
     try {
         // Try fetching from WordPress first
+        // If it fails (network error), it throws.
+        // We catch it here to fallback to static data seamlessly.
         products = await getProducts();
     } catch (error) {
         console.warn('Failed to fetch products from WordPress, falling back to static data.');
@@ -43,4 +46,18 @@ export default async function ShopPage() {
     });
 
     return <ShopClient initialProducts={formattedProducts} />;
+}
+
+export default function ShopPage() {
+    return (
+        <Suspense fallback={
+            <div className="d-flex justify-content-center align-items-center min-vh-50 py-5">
+                <div className="spinner-border text-success" role="status">
+                    <span className="visually-hidden">Loading Shop...</span>
+                </div>
+            </div>
+        }>
+            <ShopContent />
+        </Suspense>
+    );
 }

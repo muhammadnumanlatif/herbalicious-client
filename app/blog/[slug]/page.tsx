@@ -1,26 +1,27 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { blogs } from '@/src/data/seoInsights';
+import { getPostBySlug, getPosts } from '@/lib/wordpress';
 import BlogDetailClient from './BlogDetailClient';
 
 export async function generateStaticParams() {
-    return blogs.map((blog) => ({
-        slug: blog.id,
+    const posts = await getPosts(100);
+    return posts.map((post: any) => ({
+        slug: post.slug,
     }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const blog = blogs.find((b) => b.id === slug);
+    const post = await getPostBySlug(slug);
 
-    if (!blog) return { title: 'Blog Not Found' };
+    if (!post) return { title: 'Blog Not Found' };
 
     return {
-        title: `${blog.title} | Herbalicious Blog`,
-        description: blog.excerpt,
+        title: `${post.title} | Herbalicious Blog`,
+        description: post.excerpt?.replace(/<[^>]+>/g, '') || post.title,
         openGraph: {
-            images: [blog.image],
+            images: [post.featuredImage?.node?.sourceUrl || '/images/blog-placeholder.jpg'],
         },
     };
 }
@@ -28,11 +29,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
-    // Validate existence before rendering client component
-    const blog = blogs.find((b) => b.id === slug);
-    if (!blog) {
+    // Fetch data from WordPress
+    const post = await getPostBySlug(slug);
+
+    if (!post) {
         notFound();
     }
 
-    return <BlogDetailClient slug={slug} />;
+    // Adapt the WordPress post data to match the expected format for the client component
+    // We might need to handle 'relatedProductId' if it exists in custom fields, otherwise omit or use a fallback
+    const adaptedPost = {
+        id: post.slug,
+        title: post.title,
+        slug: post.slug,
+        date: post.date,
+        excerpt: post.excerpt,
+        content: post.content,
+        image: post.featuredImage?.node?.sourceUrl || '/images/blog-placeholder.jpg',
+        author: post.author?.node?.name || 'Herbalicious Team',
+        relatedProductId: null // Pending custom field implementation
+    };
+
+    return <BlogDetailClient post={adaptedPost} />;
 }

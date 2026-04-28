@@ -46,8 +46,7 @@
     {
         "id": "miracle-hair-oil",
         "name": "Herbalicious Miracle Organic Hair Oil",
-        "price": "₨ 900",
-        "oldPrice": "₨ 1,500",
+        "price": "₨ 1,500",
         "category": "Organic Hair Oil",
         "shortDescription": "Potent blend for hair revitalization.",
         "description": "Miracle Organic Hair Oil revitalizes hair from root to tip. Castor oil and herb-flower blend stimulates the scalp for thicker, longer, and more lustrous hair.",
@@ -269,7 +268,7 @@
     {
         "id": "frankincense-calendula-body-butter",
         "name": "Nourishing Body Butter",
-        "price": "₨ 1,500",
+        "price": "₨ 2,500",
         "category": "Body Care",
         "shortDescription": "Intense moisture with Frankincense & Calendula.",
         "description": "A luxurious, thick body butter that heals cracked skin and locks in moisture for 24 hours. Infused with the royal scent of Frankincense.",

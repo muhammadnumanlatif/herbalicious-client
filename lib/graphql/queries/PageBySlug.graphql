@@ -1,0 +1,7 @@
+query PageBySlug($id: ID!, $idType: PageIdType!) {
+    page(id: $id, idType: $idType) {
+        title
+        content
+        slug
+    }
+}

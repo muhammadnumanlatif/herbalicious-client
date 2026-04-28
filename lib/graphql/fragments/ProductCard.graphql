@@ -1,0 +1,15 @@
+fragment ProductCardFields on Product {
+  id
+  title
+  slug
+  featuredImage {
+    node {
+      sourceUrl
+    }
+  }
+  productFields {
+    price
+    shortDescription
+    category
+  }
+}
