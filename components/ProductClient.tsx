@@ -12,11 +12,11 @@ export default function ProductClient({ product, relatedProducts, howToSteps, in
 
     const handleOrder = () => {
         setIsRedirecting(true);
-        const randomWA = ['923434178994', '923434055363', '923224757791'][Math.floor(Math.random() * 3)];
+        const primaryNumber = '923434055363';
         const message = `*Order Request*%0A%0A*Product:* ${product.name}%0A*Price:* ${product.price}%0A%0AHi, I'm interested in ordering ${product.name}. Please confirm availability.`;
 
         setTimeout(() => {
-            window.open(`https://wa.me/${randomWA}?text=${message}`, '_blank');
+            window.open(`https://wa.me/${primaryNumber}?text=${message}`, '_blank');
             setIsRedirecting(false);
         }, 1500);
     };

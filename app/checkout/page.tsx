@@ -28,14 +28,39 @@ export default function CheckoutPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Here you would normally send the order to your WordPress custom endpoint or Firebase
-        console.log("Order Placed:", { items: cart, customer: formData, total });
+        
+        // Generate a random order ID to make it feel premium
+        const orderId = `HL-${Math.floor(100000 + Math.random() * 900000)}`;
+        
+        const itemsSummary = cart
+            .map((item: any) => `• ${item.quantity}x ${item.name} (Rs. ${(item.numericPrice * item.quantity).toLocaleString()})`)
+            .join('\n');
 
-        // Simulating order processed
-        setTimeout(() => {
-            setOrderStep(2);
-            // clearCart(); // We'll clear when they click 'Back to Home' or similar
-        }, 1000);
+        const messageText = 
+`🌿 *New Order Received!* 🌿
+------------------------------
+*Order ID:* #${orderId}
+*Customer:* ${formData.fullName}
+*Phone:* ${formData.phone}
+*Email:* ${formData.email}
+*Address:* ${formData.address}
+*Notes:* ${formData.notes || 'None'}
+------------------------------
+*Items Ordered:*
+${itemsSummary}
+------------------------------
+*Subtotal:* Rs. ${subtotal.toLocaleString()}
+*Shipping:* Rs. ${shippingCharge.toLocaleString()}
+*Total:* Rs. ${total.toLocaleString()} (Cash on Delivery)`;
+
+        const primaryNumber = '923434055363';
+        const url = `https://wa.me/${primaryNumber}?text=${encodeURIComponent(messageText)}`;
+
+        // Open WhatsApp in a new tab
+        window.open(url, '_blank');
+
+        // Move to the confirmation step
+        setOrderStep(2);
     };
 
     const MotionDiv = motion.div as any;
