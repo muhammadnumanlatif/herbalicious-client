@@ -1,16 +1,32 @@
+import { listProducts, getProductById } from '@/lib/db';
 import productsData from '@/src/data/products.json';
 
-// Return products from JSON
+// Products are sourced from D1 (dashboard-managed). Falls back to the
+// static JSON snapshot if D1 is unreachable so the storefront never goes blank.
 export async function getProducts() {
-  return productsData.map((p: any) => ({
-    id: p.id,
-    name: p.name,
-    slug: p.id,
-    image: p.image || '/Products/placeholder.png',
-    price: p.price || 'TBA',
-    category: p.category || 'General',
-    shortDescription: p.shortDescription || '',
-  }));
+  try {
+    const products = await listProducts();
+    if (products.length === 0) throw new Error('empty');
+    return products.map((p) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.id,
+      image: p.image || '/Products/placeholder.png',
+      price: p.price || 'TBA',
+      category: p.category || 'General',
+      shortDescription: p.shortDescription || '',
+    }));
+  } catch {
+    return productsData.map((p: any) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.id,
+      image: p.image || '/Products/placeholder.png',
+      price: p.price || 'TBA',
+      category: p.category || 'General',
+      shortDescription: p.shortDescription || '',
+    }));
+  }
 }
 
 export async function getPaginatedProducts(first = 20, after: string | null = null) {
@@ -18,8 +34,34 @@ export async function getPaginatedProducts(first = 20, after: string | null = nu
   return { products, pageInfo: { hasNextPage: false, endCursor: null } };
 }
 
+// Raw product record (matches the old products.json shape) for pages that
+// render the full product detail (price, attributes, keyActives, etc.)
+export async function getRawProductById(id: string) {
+  try {
+    const product = await getProductById(id);
+    if (!product) return null;
+    return {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      oldPrice: product.oldPrice ?? undefined,
+      category: product.category ?? undefined,
+      image: product.image ?? undefined,
+      shortDescription: product.shortDescription ?? undefined,
+      description: product.description ?? undefined,
+      attributes: product.attributes,
+      suitableFor: product.suitableFor ?? undefined,
+      keyActives: product.keyActives,
+      safetyProfile: product.safetyProfile ?? undefined,
+      proTip: product.proTip ?? undefined,
+    };
+  } catch {
+    return productsData.find((p: any) => p.id === id) ?? null;
+  }
+}
+
 export async function getProductBySlug(slug: string) {
-  const product = productsData.find((p: any) => p.id === slug);
+  const product = await getRawProductById(slug);
   if (!product) return null;
   // Map it to what the GraphQL query used to return so pages don't break
   return {

@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Table, Badge, Accordion, Card, Spinner } from 'react-bootstrap';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaWhatsapp, FaChevronLeft, FaStar, FaShieldAlt, FaTruck, FaLeaf, FaUndo, FaCheckCircle, FaGoogle } from 'react-icons/fa';
+import { FaWhatsapp, FaChevronLeft, FaStar, FaShieldAlt, FaTruck, FaLeaf, FaUndo, FaCheckCircle, FaGoogle, FaShoppingBasket } from 'react-icons/fa';
 import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
 
 export default function ProductClient({ product, relatedProducts, howToSteps, insight }: { product: any, relatedProducts: any[], howToSteps: any[], insight: any }) {
     const [isRedirecting, setIsRedirecting] = useState(false);
+    const { addToCart } = useCart();
     const MotionDiv = motion.div as any;
 
     const handleOrder = () => {
@@ -80,6 +82,9 @@ export default function ProductClient({ product, relatedProducts, howToSteps, in
                             )}
 
                             <div className="d-grid gap-3 mb-5">
+                                <Button onClick={() => addToCart(product)} variant="primary" size="lg" className="py-3 rounded-pill fw-bold hover-lift">
+                                    <FaShoppingBasket className="me-3" size={24} /> Add to Cart
+                                </Button>
                                 <Button onClick={handleOrder} variant="success" size="lg" className="py-3 rounded-pill fw-bold hover-lift">
                                     <FaWhatsapp className="me-3" size={28} /> Confirm Order via WhatsApp
                                 </Button>

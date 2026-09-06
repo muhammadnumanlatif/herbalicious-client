@@ -24,8 +24,8 @@ export default function DashboardLayout({
                                 </Link>
                             </li>
                             <li className="nav-item mb-2">
-                                <Link href="/dashboard/blogs" className="nav-link text-white opacity-75 hover-opacity-100">
-                                    SEO Blogs
+                                <Link href="/dashboard/orders" className="nav-link text-white opacity-75 hover-opacity-100">
+                                    Orders
                                 </Link>
                             </li>
                             <li className="nav-item mt-4">

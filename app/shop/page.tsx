@@ -4,6 +4,9 @@ import staticProducts from '@/src/data/products.json';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
+// Products live in D1 and are dashboard-editable, so render per-request.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Organic Shop | Natural Skincare & Hair Care Pakistan',
     description: 'Browse Pakistan\'s finest selection of organic goat milk soaps, traditional amla reetha shampoos, and pure wellness serums. Handcrafted for your beauty ritual.',
@@ -16,12 +19,9 @@ export const metadata: Metadata = {
 async function ShopContent() {
     let products: any[] = [];
     try {
-        // Try fetching from WordPress first
-        // If it fails (network error), it throws.
-        // We catch it here to fallback to static data seamlessly.
         products = await getProducts();
     } catch (error) {
-        console.warn('Failed to fetch products from WordPress, falling back to static data.');
+        console.warn('Failed to fetch products from D1, falling back to static data.');
     }
 
     // Fallback if WordPress returns empty array (e.g. not configured or optional)
