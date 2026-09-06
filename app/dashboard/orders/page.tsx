@@ -44,7 +44,7 @@ export default async function OrdersPage() {
                                         </td>
                                         <td>{o.customerName}</td>
                                         <td>{o.customerPhone}</td>
-                                        <td>Rs. {o.subtotal.toLocaleString()}</td>
+                                        <td>Rs. {o.total.toLocaleString()}</td>
                                         <td>
                                             <Badge bg={statusVariant[o.status] ?? 'secondary'} className="text-capitalize">
                                                 {o.status}

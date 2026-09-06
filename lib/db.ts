@@ -23,8 +23,11 @@ export interface OrderInput {
     customerEmail?: string;
     customerPhone: string;
     shippingAddress: string;
+    city: string;
     notes?: string;
     subtotal: number;
+    shippingCharge: number;
+    total: number;
     items: { productId: string; productName: string; unitPrice: number; quantity: number }[];
 }
 
@@ -34,8 +37,11 @@ export interface DbOrder {
     customerEmail: string | null;
     customerPhone: string;
     shippingAddress: string;
+    city: string | null;
     notes: string | null;
     subtotal: number;
+    shippingCharge: number;
+    total: number;
     status: string;
     paymentMethod: string;
     createdAt: string;
@@ -174,8 +180,11 @@ function rowToOrder(row: Record<string, unknown>): DbOrder {
         customerEmail: (row.customer_email as string) ?? null,
         customerPhone: row.customer_phone as string,
         shippingAddress: row.shipping_address as string,
+        city: (row.city as string) ?? null,
         notes: (row.notes as string) ?? null,
         subtotal: row.subtotal as number,
+        shippingCharge: (row.shipping_charge as number) ?? 0,
+        total: (row.total as number) ?? (row.subtotal as number),
         status: row.status as string,
         paymentMethod: row.payment_method as string,
         createdAt: row.created_at as string,
@@ -199,8 +208,8 @@ export async function createOrder(input: OrderInput): Promise<void> {
     const statements = [
         db
             .prepare(
-                `INSERT INTO orders (id, customer_name, customer_email, customer_phone, shipping_address, notes, subtotal)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)`
+                `INSERT INTO orders (id, customer_name, customer_email, customer_phone, shipping_address, city, notes, subtotal, shipping_charge, total)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
             )
             .bind(
                 input.id,
@@ -208,8 +217,11 @@ export async function createOrder(input: OrderInput): Promise<void> {
                 input.customerEmail ?? null,
                 input.customerPhone,
                 input.shippingAddress,
+                input.city,
                 input.notes ?? null,
-                input.subtotal
+                input.subtotal,
+                input.shippingCharge,
+                input.total
             ),
         ...input.items.map((item) =>
             db

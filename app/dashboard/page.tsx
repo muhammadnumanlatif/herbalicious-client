@@ -9,7 +9,7 @@ export default async function DashboardPage() {
     const pendingOrders = orders.filter((o) => o.status === 'pending').length;
     const revenue = orders
         .filter((o) => o.status !== 'cancelled')
-        .reduce((sum, o) => sum + o.subtotal, 0);
+        .reduce((sum, o) => sum + o.total, 0);
 
     return (
         <div>
@@ -69,7 +69,7 @@ export default async function DashboardPage() {
                                             <a href={`/dashboard/orders/${o.id}`}>{o.id}</a>
                                         </td>
                                         <td>{o.customerName}</td>
-                                        <td>Rs. {o.subtotal.toLocaleString()}</td>
+                                        <td>Rs. {o.total.toLocaleString()}</td>
                                         <td className="text-capitalize">{o.status}</td>
                                         <td>{new Date(o.createdAt).toLocaleDateString()}</td>
                                     </tr>

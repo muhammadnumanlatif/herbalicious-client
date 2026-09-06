@@ -22,10 +22,12 @@ export default function CheckoutPage() {
         notes: ''
     });
 
-    const shippingCharge = 250;
+    const LAHORE_SHIPPING = 300;
+    const OTHER_CITY_SHIPPING = 350;
+    const shippingCharge = formData.city.trim().toLowerCase() === 'lahore' ? LAHORE_SHIPPING : OTHER_CITY_SHIPPING;
     const total = subtotal + shippingCharge;
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<any>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
@@ -43,6 +45,7 @@ export default function CheckoutPage() {
                     customerEmail: formData.email,
                     customerPhone: formData.phone,
                     shippingAddress: formData.address,
+                    city: formData.city,
                     notes: formData.notes,
                     subtotal,
                     items: cart.map((item: any) => ({
@@ -54,12 +57,14 @@ export default function CheckoutPage() {
                 }),
             });
 
-            const data = await response.json() as { orderId?: string; error?: string };
+            const data = await response.json() as { orderId?: string; error?: string; shippingCharge?: number; total?: number };
             if (!response.ok || !data.orderId) {
                 throw new Error(data.error || 'Failed to place order');
             }
 
             setOrderId(data.orderId);
+            const confirmedShipping = data.shippingCharge ?? shippingCharge;
+            const confirmedTotal = data.total ?? total;
 
             const itemsSummary = cart
                 .map((item: any) => `• ${item.quantity}x ${item.name} (Rs. ${(item.numericPrice * item.quantity).toLocaleString()})`)
@@ -73,14 +78,15 @@ export default function CheckoutPage() {
 *Phone:* ${formData.phone}
 *Email:* ${formData.email}
 *Address:* ${formData.address}
+*City:* ${formData.city}
 *Notes:* ${formData.notes || 'None'}
 ------------------------------
 *Items Ordered:*
 ${itemsSummary}
 ------------------------------
 *Subtotal:* Rs. ${subtotal.toLocaleString()}
-*Shipping:* Rs. ${shippingCharge.toLocaleString()}
-*Total:* Rs. ${total.toLocaleString()} (Cash on Delivery)`;
+*Shipping:* Rs. ${confirmedShipping.toLocaleString()}
+*Total:* Rs. ${confirmedTotal.toLocaleString()} (Cash on Delivery)`;
 
             const primaryNumber = '923434055363';
             const url = `https://wa.me/${primaryNumber}?text=${encodeURIComponent(messageText)}`;
@@ -178,6 +184,22 @@ ${itemsSummary}
                                                         className="bg-light border-0 py-3 px-4 shadow-none"
                                                         onChange={handleInputChange}
                                                     />
+                                                </Form.Group>
+                                            </Col>
+                                            <Col md={12}>
+                                                <Form.Group>
+                                                    <Form.Label className="small fw-bold text-muted">CITY</Form.Label>
+                                                    <Form.Select
+                                                        name="city"
+                                                        required
+                                                        className="bg-light border-0 py-3 px-4 shadow-none"
+                                                        onChange={handleInputChange}
+                                                        defaultValue=""
+                                                    >
+                                                        <option value="" disabled>Select your city</option>
+                                                        <option value="Lahore">Lahore (Rs. {LAHORE_SHIPPING} delivery)</option>
+                                                        <option value="Other">Other city in Pakistan (Rs. {OTHER_CITY_SHIPPING} delivery)</option>
+                                                    </Form.Select>
                                                 </Form.Group>
                                             </Col>
                                             <Col md={12}>

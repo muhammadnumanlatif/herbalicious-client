@@ -40,9 +40,17 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
                                 ))}
                             </tbody>
                         </Table>
-                        <div className="d-flex justify-content-between border-top pt-3">
-                            <span className="fw-bold">Subtotal</span>
-                            <span className="fw-bold">Rs. {order.subtotal.toLocaleString()}</span>
+                        <div className="d-flex justify-content-between pt-3 border-top">
+                            <span className="text-muted">Subtotal</span>
+                            <span>Rs. {order.subtotal.toLocaleString()}</span>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <span className="text-muted">Shipping ({order.city || 'n/a'})</span>
+                            <span>Rs. {order.shippingCharge.toLocaleString()}</span>
+                        </div>
+                        <div className="d-flex justify-content-between border-top pt-2">
+                            <span className="fw-bold">Total</span>
+                            <span className="fw-bold">Rs. {order.total.toLocaleString()}</span>
                         </div>
                     </Card>
                 </Col>
@@ -56,7 +64,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
                         <p className="mb-1 fw-bold">{order.customerName}</p>
                         <p className="mb-1 text-muted">{order.customerPhone}</p>
                         {order.customerEmail && <p className="mb-1 text-muted">{order.customerEmail}</p>}
-                        <p className="mb-1 text-muted">{order.shippingAddress}</p>
+                        <p className="mb-1 text-muted">{order.shippingAddress}{order.city ? `, ${order.city}` : ''}</p>
                         {order.notes && (
                             <>
                                 <hr />
