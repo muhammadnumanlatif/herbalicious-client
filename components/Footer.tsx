@@ -69,7 +69,7 @@ export default function Footer() {
                             <li><Link href="/legal/terms-of-service" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Terms of Service</Link></li>
                             <li><Link href="/legal/disclaimer" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Disclaimer</Link></li>
                             <li><Link href="/directory" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">Directory</Link></li>
-                            <li><a href="/Products/Herbalicious Catalogue .pdf" target="_blank" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">PDF Catalogue</a></li>
+                            <li><a href="https://github.com/muhammadnumanlatif/herbalicious-client/releases/download/static-assets-v1/Herbalicious.Catalogue.pdf" target="_blank" className="text-light text-decoration-none opacity-50 hover-opacity-100 transition-all small">PDF Catalogue</a></li>
                         </ul>
                     </Col>
 

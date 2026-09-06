@@ -11,7 +11,10 @@
         "vite:build": "vite build",
         "sitemap": "node scripts/generate-sitemaps.js",
         "prebuild": "npm run sitemap",
-        "lint": "next lint"
+        "lint": "next lint",
+        "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+        "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+        "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
     },
     "dependencies": {
         "bootstrap": "^5.3.8",
@@ -31,6 +34,7 @@
     "devDependencies": {
         "@graphql-codegen/cli": "^6.1.1",
         "@graphql-codegen/client-preset": "^5.2.2",
+        "@opennextjs/cloudflare": "^1.20.6",
         "@types/node": "^25.2.3",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
@@ -41,6 +45,7 @@
         "eslint-plugin-react-refresh": "^0.4.6",
         "graphql": "^16.12.0",
         "typescript": "^5.9.3",
-        "vite": "^5.2.0"
+        "vite": "^5.2.0",
+        "wrangler": "^4.129.0"
     }
 }
