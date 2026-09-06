@@ -30,7 +30,7 @@ export default function CatalogueButton({
         >
             <Button
                 as="a"
-                href="/Products/Herbalicious Catalogue .pdf"
+                href="https://github.com/muhammadnumanlatif/herbalicious-client/releases/download/static-assets-v1/Herbalicious.Catalogue.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 variant={variant}
