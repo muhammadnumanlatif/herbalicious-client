@@ -5,6 +5,10 @@
     "compatibility_date": "2026-08-25",
     "compatibility_flags": ["nodejs_compat"],
     "workers_dev": true,
+    "routes": [
+        { "pattern": "herbalicious-shop.com", "custom_domain": true },
+        { "pattern": "www.herbalicious-shop.com", "custom_domain": true }
+    ],
     "assets": {
         "directory": ".open-next/assets",
         "binding": "ASSETS"
