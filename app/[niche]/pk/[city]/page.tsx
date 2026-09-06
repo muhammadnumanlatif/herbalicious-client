@@ -1,7 +1,7 @@
 import React from 'react';
 import { allNiches } from '@/src/data/niches';
 import { getCityData, pkCities } from '@/src/data/cities';
-import products from '@/src/data/products.json';
+import { getProducts } from '@/lib/wordpress';
 import CityLandingClient from './CityLandingClient';
 import { Metadata } from 'next';
 
@@ -54,5 +54,6 @@ export default async function CityLandingPage({ params }: Props) {
 
     if (!niche) return <div>Location Logic Error</div>;
 
+    const products = await getProducts();
     return <CityLandingClient niche={niche} city={city} products={products} />;
 }

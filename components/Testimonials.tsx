@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 import { FaQuoteLeft, FaMapMarkerAlt, FaCheckCircle, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
-import reviews from '../src/data/reviews.json';
-import products from '../src/data/products.json';
+import { useProducts } from '@/lib/hooks/useProducts';
+import { useReviews } from '@/lib/hooks/useReviews';
 
 interface TestimonialsProps {
     locationFilter?: string;
@@ -15,6 +15,8 @@ interface TestimonialsProps {
 
 export default function Testimonials({ locationFilter }: TestimonialsProps) {
     const MotionDiv = motion.div as any;
+    const { products } = useProducts();
+    const { reviews } = useReviews();
 
     // Filter by location if provided, otherwise random selection
     let filteredReviews = locationFilter

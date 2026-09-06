@@ -1,15 +1,11 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getPostBySlug, getPosts } from '@/lib/wordpress';
+import { getPostBySlug } from '@/lib/wordpress';
 import BlogDetailClient from './BlogDetailClient';
 
-export async function generateStaticParams() {
-    const posts = await getPosts(100);
-    return posts.map((post: any) => ({
-        slug: post.slug,
-    }));
-}
+// Blog posts are dashboard-editable and live in D1, so render per-request.
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -47,7 +43,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
         content: post.content,
         image: post.featuredImage?.node?.sourceUrl || '/images/blog-placeholder.jpg',
         author: post.author?.node?.name || 'Herbalicious Team',
-        relatedProductId: null // Pending custom field implementation
+        relatedProductId: (post as any).relatedProductId ?? null
     };
 
     return <BlogDetailClient post={adaptedPost} />;

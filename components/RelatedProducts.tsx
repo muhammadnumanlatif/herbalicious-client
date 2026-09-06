@@ -1,14 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import staticProducts from '@/src/data/products.json';
+import { getProducts } from '@/lib/wordpress';
 
-// Mock function to simulate delay - replace with real fetch
 async function fetchRelatedProducts(category: string, currentId: string) {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    return staticProducts
-        .filter((p: any) => p.category === category && p.id !== currentId)
+    const products = await getProducts();
+    return products
+        .filter((p) => p.category === category && p.id !== currentId)
         .slice(0, 4);
 }
 

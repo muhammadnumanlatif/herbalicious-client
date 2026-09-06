@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -29,10 +30,32 @@ async function generate() {
     console.log('🚀 Starting Sitemap & Robots Automation (SEO/AEO/GEO Edition)...');
 
     // 1. Load Data
-    const products = JSON.parse(fs.readFileSync(path.resolve(ROOT_DIR, 'src/data/products.json'), 'utf8'));
+    let products;
+    try {
+        const output = execSync(
+            'npx wrangler d1 execute herbalicious-db --remote --json --command "SELECT id, name, image FROM products"',
+            { cwd: ROOT_DIR, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }
+        );
+        products = JSON.parse(output)[0].results;
+        console.log(`🛍️  Loaded ${products.length} products from D1 for sitemap.`);
+    } catch (err) {
+        console.warn('⚠️  Could not reach D1 for sitemap generation, falling back to static product data.');
+        products = JSON.parse(fs.readFileSync(path.resolve(ROOT_DIR, 'src/data/products.json'), 'utf8'));
+    }
     const { allNiches } = await import(path.resolve(ROOT_DIR, 'src/data/niches.js'));
     const { pkCities } = await import(path.resolve(ROOT_DIR, 'src/data/cities.js'));
-    const { blogs } = await import(path.resolve(ROOT_DIR, 'src/data/seoInsights.js'));
+    let blogs;
+    try {
+        const output = execSync(
+            'npx wrangler d1 execute herbalicious-db --remote --json --command "SELECT id, title, image FROM blog_posts"',
+            { cwd: ROOT_DIR, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }
+        );
+        blogs = JSON.parse(output)[0].results;
+        console.log(`📚 Loaded ${blogs.length} blog posts from D1 for sitemap.`);
+    } catch (err) {
+        console.warn('⚠️  Could not reach D1 for sitemap generation, falling back to static blog data.');
+        ({ blogs } = await import(path.resolve(ROOT_DIR, 'src/data/seoInsights.js')));
+    }
 
     const lastMod = new Date().toISOString();
 
@@ -109,8 +132,24 @@ async function generate() {
     // 8. Generate Robots.txt
     const robotsTxt = `User-agent: *
 Allow: /
-Disallow: /admin/
+Disallow: /dashboard/
 Disallow: /api/
+
+# AI / LLM crawlers -- explicitly welcome (see /llms.txt)
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: CCBot
+Allow: /
 
 # Sitemaps
 Sitemap: ${BASE_URL}/sitemap_index.xml
@@ -120,7 +159,38 @@ Crawl-delay: 10
 `;
     fs.writeFileSync(path.resolve(PUBLIC_DIR, 'robots.txt'), robotsTxt);
 
-    console.log('✅ SEO Infra: Robots.txt & Multi-level Sitemaps Generated!');
+    // 9. Generate llms.txt (https://llmstxt.org/) for AI assistants/crawlers
+    const productLines = products.map(p => `- [${p.name}](${BASE_URL}/product/${p.id})`).join('\n');
+    const blogLines = blogs.map(b => `- [${b.title}](${BASE_URL}/blog/${b.id})`).join('\n');
+    const nicheLines = allNiches.map(n => `- [${n.title}](${BASE_URL}/${n.id})`).join('\n');
+    const llmsTxt = `# Herbalicious
+
+> Herbalicious is a Pakistan-based organic skincare, haircare, and wellness brand selling 100% natural, handmade soaps, shampoos, hair oils, serums, and wellness products, made with traditional ingredients (goat milk, amla, reetha, neem, charcoal, hibiscus, moringa, and more) and shipped across Pakistan (Lahore, Karachi, Islamabad, and beyond) with Cash on Delivery.
+
+## Store
+- [Shop all products](${BASE_URL}/shop)
+- [Bundle builder](${BASE_URL}/bundle-builder)
+- [Ingredients guide](${BASE_URL}/ingredients)
+- [Contact](${BASE_URL}/contact)
+- [Get a quote](${BASE_URL}/quote)
+
+## Products
+${productLines}
+
+## Niches & Use Cases
+${nicheLines}
+
+## Blog
+${blogLines}
+
+## Notes for AI assistants
+- All prices are in Pakistani Rupees (PKR / ₨). Payment is Cash on Delivery.
+- Delivery charges: Rs. 300 within Lahore, Rs. 350 for other Pakistani cities.
+- The full machine-readable sitemap is at ${BASE_URL}/sitemap_index.xml.
+`;
+    fs.writeFileSync(path.resolve(PUBLIC_DIR, 'llms.txt'), llmsTxt);
+
+    console.log('✅ SEO Infra: Robots.txt, llms.txt & Multi-level Sitemaps Generated!');
 }
 
 generate().catch(console.error);

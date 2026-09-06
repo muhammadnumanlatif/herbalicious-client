@@ -253,3 +253,216 @@ export async function updateOrderStatus(id: string, status: string): Promise<voi
     const db = await getDb();
     await db.prepare("UPDATE orders SET status = ?, updated_at = datetime('now') WHERE id = ?").bind(status, id).run();
 }
+
+export interface DbBlogPost {
+    id: string;
+    title: string;
+    excerpt: string | null;
+    content: string | null;
+    image: string | null;
+    date: string;
+    author: string | null;
+    relatedProductId: string | null;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface BlogPostWriteInput {
+    id: string;
+    title: string;
+    excerpt?: string | null;
+    content?: string | null;
+    image?: string | null;
+    date: string;
+    author?: string | null;
+    relatedProductId?: string | null;
+}
+
+function rowToBlogPost(row: Record<string, unknown>): DbBlogPost {
+    return {
+        id: row.id as string,
+        title: row.title as string,
+        excerpt: (row.excerpt as string) ?? null,
+        content: (row.content as string) ?? null,
+        image: (row.image as string) ?? null,
+        date: row.date as string,
+        author: (row.author as string) ?? null,
+        relatedProductId: (row.related_product_id as string) ?? null,
+        createdAt: row.created_at as string,
+        updatedAt: row.updated_at as string,
+    };
+}
+
+export async function listBlogPosts(): Promise<DbBlogPost[]> {
+    const db = await getDb();
+    const { results } = await db.prepare('SELECT * FROM blog_posts ORDER BY date DESC').all();
+    return results.map(rowToBlogPost);
+}
+
+export async function getBlogPostById(id: string): Promise<DbBlogPost | null> {
+    const db = await getDb();
+    const row = await db.prepare('SELECT * FROM blog_posts WHERE id = ?').bind(id).first();
+    return row ? rowToBlogPost(row) : null;
+}
+
+export async function createBlogPost(input: BlogPostWriteInput): Promise<void> {
+    const db = await getDb();
+    await db
+        .prepare(
+            `INSERT INTO blog_posts (id, title, excerpt, content, image, date, author, related_product_id)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        )
+        .bind(
+            input.id,
+            input.title,
+            input.excerpt ?? null,
+            input.content ?? null,
+            input.image ?? null,
+            input.date,
+            input.author ?? null,
+            input.relatedProductId ?? null
+        )
+        .run();
+}
+
+export async function updateBlogPost(id: string, input: BlogPostWriteInput): Promise<void> {
+    const db = await getDb();
+    await db
+        .prepare(
+            `UPDATE blog_posts SET title = ?, excerpt = ?, content = ?, image = ?, date = ?, author = ?,
+             related_product_id = ?, updated_at = datetime('now') WHERE id = ?`
+        )
+        .bind(
+            input.title,
+            input.excerpt ?? null,
+            input.content ?? null,
+            input.image ?? null,
+            input.date,
+            input.author ?? null,
+            input.relatedProductId ?? null,
+            id
+        )
+        .run();
+}
+
+export async function deleteBlogPost(id: string): Promise<void> {
+    const db = await getDb();
+    await db.prepare('DELETE FROM blog_posts WHERE id = ?').bind(id).run();
+}
+
+export interface DbContactMessage {
+    id: number;
+    name: string;
+    email: string;
+    subject: string | null;
+    message: string;
+    status: string;
+    createdAt: string;
+}
+
+function rowToMessage(row: Record<string, unknown>): DbContactMessage {
+    return {
+        id: row.id as number,
+        name: row.name as string,
+        email: row.email as string,
+        subject: (row.subject as string) ?? null,
+        message: row.message as string,
+        status: row.status as string,
+        createdAt: row.created_at as string,
+    };
+}
+
+export async function createContactMessage(input: {
+    name: string;
+    email: string;
+    subject?: string | null;
+    message: string;
+}): Promise<void> {
+    const db = await getDb();
+    await db
+        .prepare('INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)')
+        .bind(input.name, input.email, input.subject ?? null, input.message)
+        .run();
+}
+
+export async function listContactMessages(): Promise<DbContactMessage[]> {
+    const db = await getDb();
+    const { results } = await db.prepare('SELECT * FROM contact_messages ORDER BY created_at DESC').all();
+    return results.map(rowToMessage);
+}
+
+export async function getContactMessageById(id: number): Promise<DbContactMessage | null> {
+    const db = await getDb();
+    const row = await db.prepare('SELECT * FROM contact_messages WHERE id = ?').bind(id).first();
+    return row ? rowToMessage(row) : null;
+}
+
+export async function updateContactMessageStatus(id: number, status: string): Promise<void> {
+    const db = await getDb();
+    await db.prepare('UPDATE contact_messages SET status = ? WHERE id = ?').bind(status, id).run();
+}
+
+export async function deleteContactMessage(id: number): Promise<void> {
+    const db = await getDb();
+    await db.prepare('DELETE FROM contact_messages WHERE id = ?').bind(id).run();
+}
+
+export interface DbTestimonial {
+    id: number;
+    name: string;
+    location: string | null;
+    content: string;
+    productId: string | null;
+    createdAt: string;
+}
+
+export interface TestimonialWriteInput {
+    name: string;
+    location?: string | null;
+    content: string;
+    productId?: string | null;
+}
+
+function rowToTestimonial(row: Record<string, unknown>): DbTestimonial {
+    return {
+        id: row.id as number,
+        name: row.name as string,
+        location: (row.location as string) ?? null,
+        content: row.content as string,
+        productId: (row.product_id as string) ?? null,
+        createdAt: row.created_at as string,
+    };
+}
+
+export async function listTestimonials(): Promise<DbTestimonial[]> {
+    const db = await getDb();
+    const { results } = await db.prepare('SELECT * FROM testimonials ORDER BY created_at DESC').all();
+    return results.map(rowToTestimonial);
+}
+
+export async function getTestimonialById(id: number): Promise<DbTestimonial | null> {
+    const db = await getDb();
+    const row = await db.prepare('SELECT * FROM testimonials WHERE id = ?').bind(id).first();
+    return row ? rowToTestimonial(row) : null;
+}
+
+export async function createTestimonial(input: TestimonialWriteInput): Promise<void> {
+    const db = await getDb();
+    await db
+        .prepare('INSERT INTO testimonials (name, location, content, product_id) VALUES (?, ?, ?, ?)')
+        .bind(input.name, input.location ?? null, input.content, input.productId ?? null)
+        .run();
+}
+
+export async function updateTestimonial(id: number, input: TestimonialWriteInput): Promise<void> {
+    const db = await getDb();
+    await db
+        .prepare('UPDATE testimonials SET name = ?, location = ?, content = ?, product_id = ? WHERE id = ?')
+        .bind(input.name, input.location ?? null, input.content, input.productId ?? null, id)
+        .run();
+}
+
+export async function deleteTestimonial(id: number): Promise<void> {
+    const db = await getDb();
+    await db.prepare('DELETE FROM testimonials WHERE id = ?').bind(id).run();
+}

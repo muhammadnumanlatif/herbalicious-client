@@ -5,13 +5,13 @@ import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaLeaf, FaPlus, FaCheck, FaShoppingCart, FaMagic } from 'react-icons/fa';
 import { useCart } from '@/context/CartContext';
-import products from '@/src/data/products.json';
-
-const soaps = products.filter(p => p.category === 'Skincare' || p.category === 'Soap');
+import { useProducts } from '@/lib/hooks/useProducts';
 
 export default function BundleBuilder() {
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
     const { addToCart } = useCart();
+    const { products } = useProducts();
+    const soaps = products.filter(p => p.category === 'Skincare' || p.category === 'Soap');
     const MotionDiv = motion.div as any;
 
     const toggleItem = (product: any) => {

@@ -4,6 +4,9 @@ import BlogsClient from './BlogsClient';
 import { getPosts } from '@/lib/wordpress';
 import { blogs as staticBlogs } from '@/src/data/seoInsights';
 
+// Blog posts are dashboard-editable and live in D1, so render per-request.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Natural Beauty Insights | Herbalicious Organic Blog',
     description: 'Expert advice on organic skincare, hair care routines, and ingredient benefits. Discover local wellness secrets from across Pakistan.',

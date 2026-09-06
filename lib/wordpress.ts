@@ -1,5 +1,6 @@
-import { listProducts, getProductById } from '@/lib/db';
+import { listProducts, getProductById, listBlogPosts, getBlogPostById } from '@/lib/db';
 import productsData from '@/src/data/products.json';
+import { blogs as blogsData } from '@/src/data/seoInsights';
 
 // Products are sourced from D1 (dashboard-managed). Falls back to the
 // static JSON snapshot if D1 is unreachable so the storefront never goes blank.
@@ -89,14 +90,65 @@ export async function getPageByURI(uri: string) {
 }
 export const getPageBySlug = getPageByURI;
 
+// Blog posts are sourced from D1 (dashboard-managed), with a static
+// fallback so the blog never goes blank if D1 is unreachable.
 export async function getPosts(first = 20) {
-  return [];
+  try {
+    const posts = await listBlogPosts();
+    if (posts.length === 0) throw new Error('empty');
+    return posts.slice(0, first).map((p) => ({
+      id: p.id,
+      title: p.title,
+      slug: p.id,
+      date: p.date,
+      excerpt: p.excerpt || '',
+      image: p.image || '/images/blog-placeholder.jpg',
+      author: p.author || 'Herbalicious Team',
+    }));
+  } catch {
+    return blogsData.slice(0, first).map((b: any) => ({
+      id: b.id,
+      title: b.title,
+      slug: b.id,
+      date: b.date,
+      excerpt: b.excerpt,
+      image: b.image,
+      author: b.author,
+    }));
+  }
 }
 
 export async function getPaginatedPosts(first = 12, after: string | null = null) {
-  return { posts: [], pageInfo: { hasNextPage: false, endCursor: null } };
+  const posts = await getPosts(first);
+  return { posts, pageInfo: { hasNextPage: false, endCursor: null } };
 }
 
 export async function getPostBySlug(slug: string) {
-  return null;
+  try {
+    const post = await getBlogPostById(slug);
+    if (!post) return null;
+    return {
+      slug: post.id,
+      title: post.title,
+      date: post.date,
+      excerpt: post.excerpt,
+      content: post.content,
+      featuredImage: { node: { sourceUrl: post.image || '/images/blog-placeholder.jpg' } },
+      author: { node: { name: post.author || 'Herbalicious Team' } },
+      relatedProductId: post.relatedProductId,
+    };
+  } catch {
+    const fallback = blogsData.find((b: any) => b.id === slug);
+    if (!fallback) return null;
+    return {
+      slug: fallback.id,
+      title: fallback.title,
+      date: fallback.date,
+      excerpt: fallback.excerpt,
+      content: fallback.content,
+      featuredImage: { node: { sourceUrl: fallback.image } },
+      author: { node: { name: fallback.author } },
+      relatedProductId: fallback.relatedProductId,
+    };
+  }
 }

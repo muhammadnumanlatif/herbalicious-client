@@ -1,7 +1,23 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
+Disallow: /dashboard/
 Disallow: /api/
+
+# AI / LLM crawlers -- explicitly welcome (see /llms.txt)
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: CCBot
+Allow: /
 
 # Sitemaps
 Sitemap: https://herbalicious-shop.com/sitemap_index.xml

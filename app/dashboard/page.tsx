@@ -1,12 +1,18 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
-import { listProducts, listOrders } from '@/lib/db';
+import { listProducts, listOrders, listBlogPosts, listContactMessages } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
-    const [products, orders] = await Promise.all([listProducts(), listOrders()]);
+    const [products, orders, blogPosts, messages] = await Promise.all([
+        listProducts(),
+        listOrders(),
+        listBlogPosts(),
+        listContactMessages(),
+    ]);
     const pendingOrders = orders.filter((o) => o.status === 'pending').length;
+    const unreadMessages = messages.filter((m) => m.status === 'unread').length;
     const revenue = orders
         .filter((o) => o.status !== 'cancelled')
         .reduce((sum, o) => sum + o.total, 0);
@@ -16,32 +22,46 @@ export default async function DashboardPage() {
             <h2 className="fw-bold mb-4">Dashboard Overview</h2>
 
             <Row className="g-4">
-                <Col md={3}>
+                <Col md={2}>
                     <Card className="border-0 shadow-sm p-4 rounded-4">
                         <h6 className="text-muted mb-2">Total Products</h6>
                         <h2 className="fw-bold mb-0">{products.length}</h2>
                         <div className="small text-success mt-2">Live from D1</div>
                     </Card>
                 </Col>
-                <Col md={3}>
+                <Col md={2}>
                     <Card className="border-0 shadow-sm p-4 rounded-4">
                         <h6 className="text-muted mb-2">Total Orders</h6>
                         <h2 className="fw-bold mb-0">{orders.length}</h2>
                         <div className="small text-muted mt-2">All time</div>
                     </Card>
                 </Col>
-                <Col md={3}>
+                <Col md={2}>
                     <Card className="border-0 shadow-sm p-4 rounded-4">
                         <h6 className="text-muted mb-2">Pending Orders</h6>
                         <h2 className="fw-bold mb-0">{pendingOrders}</h2>
                         <div className="small text-warning mt-2">Needs action</div>
                     </Card>
                 </Col>
-                <Col md={3}>
+                <Col md={2}>
                     <Card className="border-0 shadow-sm p-4 rounded-4">
                         <h6 className="text-muted mb-2">Revenue (COD)</h6>
                         <h2 className="fw-bold mb-0">Rs. {revenue.toLocaleString()}</h2>
                         <div className="small text-primary mt-2">Excludes cancelled</div>
+                    </Card>
+                </Col>
+                <Col md={2}>
+                    <Card className="border-0 shadow-sm p-4 rounded-4">
+                        <h6 className="text-muted mb-2">Blog Posts</h6>
+                        <h2 className="fw-bold mb-0">{blogPosts.length}</h2>
+                        <div className="small text-success mt-2">Live from D1</div>
+                    </Card>
+                </Col>
+                <Col md={2}>
+                    <Card className="border-0 shadow-sm p-4 rounded-4">
+                        <h6 className="text-muted mb-2">Unread Messages</h6>
+                        <h2 className="fw-bold mb-0">{unreadMessages}</h2>
+                        <div className="small text-warning mt-2">Needs a reply</div>
                     </Card>
                 </Col>
             </Row>

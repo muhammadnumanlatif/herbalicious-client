@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Badge } from 'react-bootstrap';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaLeaf, FaMapMarkerAlt, FaFlask, FaKeyboard } from 'react-icons/fa';
-import products from '@/src/data/products.json';
+import { useProducts } from '@/lib/hooks/useProducts';
 import { ingredients } from '@/src/data/ingredients';
 import { pkCities } from '@/src/data/cities';
 import { allNiches } from '@/src/data/niches';
@@ -16,6 +16,7 @@ export default function CommandPalette() {
     const router = useRouter();
     const inputRef = useRef<HTMLInputElement>(null);
     const MotionDiv = motion.div as any;
+    const { products } = useProducts();
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {

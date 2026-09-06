@@ -1,12 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
+import { Badge } from 'react-bootstrap';
 import LogoutButton from '@/components/admin/LogoutButton';
+import { listContactMessages } from '@/lib/db';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    let unreadCount = 0;
+    try {
+        unreadCount = (await listContactMessages()).filter((m) => m.status === 'unread').length;
+    } catch {
+        // Login page renders inside this layout before a session exists; ignore.
+    }
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -27,6 +36,22 @@ export default function DashboardLayout({
                             <li className="nav-item mb-2">
                                 <Link href="/dashboard/orders" className="nav-link text-white opacity-75 hover-opacity-100">
                                     Orders
+                                </Link>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <Link href="/dashboard/blogs" className="nav-link text-white opacity-75 hover-opacity-100">
+                                    Blogs
+                                </Link>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <Link href="/dashboard/testimonials" className="nav-link text-white opacity-75 hover-opacity-100">
+                                    Testimonials
+                                </Link>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <Link href="/dashboard/messages" className="nav-link text-white opacity-75 hover-opacity-100 d-flex align-items-center gap-2">
+                                    Messages
+                                    {unreadCount > 0 && <Badge bg="danger" pill>{unreadCount}</Badge>}
                                 </Link>
                             </li>
                             <li className="nav-item mt-4">

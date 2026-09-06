@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import Link from 'next/link';
 import { FaArrowRight, FaRedo, FaCheckCircle } from 'react-icons/fa';
-import products from '../src/data/products.json';
+import { useProducts } from '@/lib/hooks/useProducts';
 
 const quizSteps = [
     {
@@ -53,6 +53,7 @@ export default function SolutionQuiz() {
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [selections, setSelections] = useState<Record<string, any>>({});
     const [isFinished, setIsFinished] = useState(false);
+    const { products } = useProducts();
 
     const MotionDiv = motion.div as any;
     const currentStep = quizSteps[currentStepIndex];
@@ -80,10 +81,11 @@ export default function SolutionQuiz() {
     };
 
     const getRecommendation = () => {
+        if (products.length === 0) return null;
         const selectionValues = Object.values(selections);
         const lastSelection = selectionValues[selectionValues.length - 1];
         if (lastSelection?.productId) {
-            return (products as any[]).find(p => p.id === lastSelection.productId) || products[0];
+            return products.find(p => p.id === lastSelection.productId) || products[0];
         }
         return products[0];
     };
@@ -132,6 +134,10 @@ export default function SolutionQuiz() {
                                     <div className="mt-5 text-muted small">
                                         Step {currentStepIndex === 0 ? '1' : '2'} of 2
                                     </div>
+                                </MotionDiv>
+            ) : !recommendedProduct ? (
+                                <MotionDiv key="loading" className="result-card p-5 text-center text-muted">
+                                    Finding your match…
                                 </MotionDiv>
                             ) : (
                                 <MotionDiv

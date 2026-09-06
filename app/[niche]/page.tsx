@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
 import { allNiches } from '@/src/data/niches';
-import products from '@/src/data/products.json';
+import { getProducts } from '@/lib/wordpress';
 import NicheClient from '@/components/NicheClient';
 import { Metadata } from 'next';
 
@@ -52,5 +52,6 @@ export default async function NicheLandingPage({ params }: Props) {
         );
     }
 
+    const products = await getProducts();
     return <NicheClient niche={niche} products={products} />;
 }
