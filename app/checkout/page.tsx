@@ -10,6 +10,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function CheckoutPage() {
     const { cart, subtotal, clearCart } = useCart();
     const [orderStep, setOrderStep] = useState(1); // 1: Shipping, 2: Confirmation
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState('');
+    const [orderId, setOrderId] = useState('');
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -19,48 +22,82 @@ export default function CheckoutPage() {
         notes: ''
     });
 
-    const shippingCharge = 250;
+    const LAHORE_SHIPPING = 300;
+    const OTHER_CITY_SHIPPING = 350;
+    const shippingCharge = formData.city.trim().toLowerCase() === 'lahore' ? LAHORE_SHIPPING : OTHER_CITY_SHIPPING;
     const total = subtotal + shippingCharge;
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<any>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        // Generate a random order ID to make it feel premium
-        const orderId = `HL-${Math.floor(100000 + Math.random() * 900000)}`;
-        
-        const itemsSummary = cart
-            .map((item: any) => `• ${item.quantity}x ${item.name} (Rs. ${(item.numericPrice * item.quantity).toLocaleString()})`)
-            .join('\n');
+        setSubmitError('');
+        setIsSubmitting(true);
 
-        const messageText = 
+        try {
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    customerName: formData.fullName,
+                    customerEmail: formData.email,
+                    customerPhone: formData.phone,
+                    shippingAddress: formData.address,
+                    city: formData.city,
+                    notes: formData.notes,
+                    subtotal,
+                    items: cart.map((item: any) => ({
+                        productId: item.id,
+                        productName: item.name,
+                        unitPrice: item.numericPrice,
+                        quantity: item.quantity,
+                    })),
+                }),
+            });
+
+            const data = await response.json() as { orderId?: string; error?: string; shippingCharge?: number; total?: number };
+            if (!response.ok || !data.orderId) {
+                throw new Error(data.error || 'Failed to place order');
+            }
+
+            setOrderId(data.orderId);
+            const confirmedShipping = data.shippingCharge ?? shippingCharge;
+            const confirmedTotal = data.total ?? total;
+
+            const itemsSummary = cart
+                .map((item: any) => `• ${item.quantity}x ${item.name} (Rs. ${(item.numericPrice * item.quantity).toLocaleString()})`)
+                .join('\n');
+
+            const messageText =
 `🌿 *New Order Received!* 🌿
 ------------------------------
-*Order ID:* #${orderId}
+*Order ID:* #${data.orderId}
 *Customer:* ${formData.fullName}
 *Phone:* ${formData.phone}
 *Email:* ${formData.email}
 *Address:* ${formData.address}
+*City:* ${formData.city}
 *Notes:* ${formData.notes || 'None'}
 ------------------------------
 *Items Ordered:*
 ${itemsSummary}
 ------------------------------
 *Subtotal:* Rs. ${subtotal.toLocaleString()}
-*Shipping:* Rs. ${shippingCharge.toLocaleString()}
-*Total:* Rs. ${total.toLocaleString()} (Cash on Delivery)`;
+*Shipping:* Rs. ${confirmedShipping.toLocaleString()}
+*Total:* Rs. ${confirmedTotal.toLocaleString()} (Cash on Delivery)`;
 
-        const primaryNumber = '923434055363';
-        const url = `https://wa.me/${primaryNumber}?text=${encodeURIComponent(messageText)}`;
+            const primaryNumber = '923434055363';
+            const url = `https://wa.me/${primaryNumber}?text=${encodeURIComponent(messageText)}`;
+            window.open(url, '_blank');
 
-        // Open WhatsApp in a new tab
-        window.open(url, '_blank');
-
-        // Move to the confirmation step
-        setOrderStep(2);
+            setOrderStep(2);
+        } catch (error) {
+            setSubmitError(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const MotionDiv = motion.div as any;
@@ -151,6 +188,22 @@ ${itemsSummary}
                                             </Col>
                                             <Col md={12}>
                                                 <Form.Group>
+                                                    <Form.Label className="small fw-bold text-muted">CITY</Form.Label>
+                                                    <Form.Select
+                                                        name="city"
+                                                        required
+                                                        className="bg-light border-0 py-3 px-4 shadow-none"
+                                                        onChange={handleInputChange}
+                                                        defaultValue=""
+                                                    >
+                                                        <option value="" disabled>Select your city</option>
+                                                        <option value="Lahore">Lahore (Rs. {LAHORE_SHIPPING} delivery)</option>
+                                                        <option value="Other">Other city in Pakistan (Rs. {OTHER_CITY_SHIPPING} delivery)</option>
+                                                    </Form.Select>
+                                                </Form.Group>
+                                            </Col>
+                                            <Col md={12}>
+                                                <Form.Group>
                                                     <Form.Label className="small fw-bold text-muted">ORDER NOTES (OPTIONAL)</Form.Label>
                                                     <Form.Control
                                                         as="textarea"
@@ -171,8 +224,11 @@ ${itemsSummary}
                                                         <span className="small text-muted">Pay securely when the rider arrives.</span>
                                                     </div>
                                                 </div>
-                                                <Button type="submit" variant="success" className="w-100 rounded-pill py-3 fw-bold shadow-sm h5 mb-0">
-                                                    Place Order (Rs. {total.toLocaleString()})
+                                                {submitError && (
+                                                    <div className="alert alert-danger rounded-4 mb-3">{submitError}</div>
+                                                )}
+                                                <Button type="submit" variant="success" disabled={isSubmitting} className="w-100 rounded-pill py-3 fw-bold shadow-sm h5 mb-0">
+                                                    {isSubmitting ? 'Placing Order…' : `Place Order (Rs. ${total.toLocaleString()})`}
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -244,7 +300,7 @@ ${itemsSummary}
                         </div>
 
                         <Card className="border-0 shadow-sm rounded-4 p-5 max-width-600 mx-auto bg-light mb-5 text-start">
-                            <h5 className="fw-bold mb-4">Delivery To:</h5>
+                            <h5 className="fw-bold mb-4">Order #{orderId} &mdash; Delivery To:</h5>
                             <p className="mb-1 fw-bold">{formData.fullName}</p>
                             <p className="mb-1 text-muted">{formData.phone}</p>
                             <p className="mb-4 text-muted">{formData.address}</p>

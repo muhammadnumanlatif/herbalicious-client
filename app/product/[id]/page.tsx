@@ -1,11 +1,14 @@
 import { Suspense } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { getProductBySlug } from '@/lib/wordpress';
+import { getProductBySlug, getRawProductById } from '@/lib/wordpress';
 import ProductClient from '@/components/ProductClient';
 import RelatedProducts from '@/components/RelatedProducts';
-import staticProducts from '@/src/data/products.json';
 import { productSEOInsights } from '@/src/data/seoInsights';
 import { Metadata } from 'next';
+
+// Products live in D1 and can be edited from the dashboard at any time,
+// so this page renders per-request rather than being pre-built at SSG time.
+export const dynamic = 'force-dynamic';
 
 const howToMap: Record<string, any[]> = {
     'amla-reetha-shampoo': [
@@ -24,46 +27,25 @@ type Props = {
     params: Promise<{ id: string }>;
 };
 
-export async function generateStaticParams() {
-    return staticProducts.map((p) => ({
-        id: p.id,
-    }));
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id } = await params;
-
-    // Fetch dynamic SEO data from WordPress
     const product = await getProductBySlug(id);
-
-    if (product?.seo) {
-        return {
-            title: product.seo.title || product.title,
-            description: product.seo.metaDesc,
-            openGraph: {
-                title: product.seo.opengraphTitle || product.title,
-                description: product.seo.opengraphDescription,
-                images: product.seo.opengraphImage?.sourceUrl ? [product.seo.opengraphImage.sourceUrl] : [],
-            },
-        };
-    }
-
-    // Fallback to static data if not in WP
-    const staticProduct = staticProducts.find(p => p.id === id);
-    if (!staticProduct) return { title: 'Product Not Found' };
+    if (!product) return { title: 'Product Not Found' };
 
     return {
-        title: `${staticProduct.name} | 100% Organic & Handmade | Herbalicious`,
-        description: staticProduct.shortDescription || staticProduct.description,
+        title: product.seo?.title || `${product.title} | 100% Organic & Handmade | Herbalicious`,
+        description: product.seo?.metaDesc || product.productFields?.shortDescription,
         openGraph: {
-            images: [staticProduct.image],
+            title: product.seo?.opengraphTitle || product.title,
+            description: product.seo?.opengraphDescription,
+            images: product.seo?.opengraphImage?.sourceUrl ? [product.seo.opengraphImage.sourceUrl] : [],
         },
     };
 }
 
 export default async function ProductDetailPage({ params }: Props) {
     const { id } = await params;
-    const product = staticProducts.find(p => p.id === id);
+    const product = await getRawProductById(id);
     if (!product) return <div>Product Not Found</div>;
 
     const howToSteps = howToMap[id] || [

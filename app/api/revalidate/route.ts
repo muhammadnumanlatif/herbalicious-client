@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        const body = await request.json();
+        const body = (await request.json()) as { model?: string; post_name?: string };
         const { model, post_name } = body;
 
         if (model === 'product') {

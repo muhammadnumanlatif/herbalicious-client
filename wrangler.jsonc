@@ -12,6 +12,16 @@
         "enabled": true
     },
     "vars": {
-        "NEXT_PUBLIC_BASE_URL": "https://herbalicious-shop.com"
-    }
+        "NEXT_PUBLIC_BASE_URL": "https://herbalicious-shop.com",
+        "CF_ACCESS_TEAM_DOMAIN": "",
+        "CF_ACCESS_AUD": ""
+    },
+    "d1_databases": [
+        {
+            "binding": "herbalicious_db",
+            "database_name": "herbalicious-db",
+            "database_id": "59e2d8f0-9cf1-4e80-bb27-fa119cfe1df6",
+            "migrations_dir": "migrations"
+        }
+    ]
 }
