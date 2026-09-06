@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+import { FaPlus, FaNewspaper } from 'react-icons/fa';
 import { listBlogPosts } from '@/lib/db';
 import DeleteButton from '@/components/admin/DeleteButton';
 
@@ -13,14 +14,17 @@ export default async function BlogsPage() {
         <div>
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="fw-bold mb-0">Blog Posts</h2>
-                <Link href="/dashboard/blogs/new">
-                    <Button variant="success" className="rounded-pill fw-bold">+ New Post</Button>
+                <Link href="/dashboard/blogs/new" className="btn btn-success rounded-pill fw-bold d-inline-flex align-items-center gap-2">
+                    <FaPlus size={12} /> New Post
                 </Link>
             </div>
 
             <Card className="border-0 shadow-sm rounded-4 p-4">
                 {posts.length === 0 ? (
-                    <p className="text-muted mb-0">No blog posts yet.</p>
+                    <div className="text-center text-muted py-5">
+                        <FaNewspaper size={40} className="opacity-25 mb-3" />
+                        <p className="mb-0">No blog posts yet. Create your first one to get started.</p>
+                    </div>
                 ) : (
                     <div className="table-responsive">
                         <table className="table align-middle">
@@ -38,11 +42,11 @@ export default async function BlogsPage() {
                                         <td className="fw-bold">{p.title}</td>
                                         <td>{p.author}</td>
                                         <td>{p.date}</td>
-                                        <td className="text-end">
+                                        <td className="text-end text-nowrap">
                                             <Link href={`/blog/${p.id}`} target="_blank" className="btn btn-outline-secondary btn-sm me-2">
                                                 View
                                             </Link>
-                                            <Link href={`/dashboard/blogs/${p.id}`} className="btn btn-outline-secondary btn-sm me-2">
+                                            <Link href={`/dashboard/blogs/${p.id}`} className="btn btn-outline-primary btn-sm me-2">
                                                 Edit
                                             </Link>
                                             <DeleteButton url={`/api/admin/blogs/${p.id}`} confirmText={`Delete post "${p.title}"?`} />

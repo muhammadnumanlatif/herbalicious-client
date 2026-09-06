@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Badge } from 'react-bootstrap';
+import { FaPlus, FaQuoteLeft } from 'react-icons/fa';
 import { listTestimonials } from '@/lib/db';
 import DeleteButton from '@/components/admin/DeleteButton';
 
@@ -13,14 +14,17 @@ export default async function TestimonialsPage() {
         <div>
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="fw-bold mb-0">Testimonials</h2>
-                <Link href="/dashboard/testimonials/new">
-                    <Button variant="success" className="rounded-pill fw-bold">+ New Testimonial</Button>
+                <Link href="/dashboard/testimonials/new" className="btn btn-success rounded-pill fw-bold d-inline-flex align-items-center gap-2">
+                    <FaPlus size={12} /> New Testimonial
                 </Link>
             </div>
 
             <Card className="border-0 shadow-sm rounded-4 p-4">
                 {testimonials.length === 0 ? (
-                    <p className="text-muted mb-0">No testimonials yet.</p>
+                    <div className="text-center text-muted py-5">
+                        <FaQuoteLeft size={40} className="opacity-25 mb-3" />
+                        <p className="mb-0">No testimonials yet. Add your first one to get started.</p>
+                    </div>
                 ) : (
                     <div className="table-responsive">
                         <table className="table align-middle">
@@ -39,9 +43,9 @@ export default async function TestimonialsPage() {
                                         <td className="fw-bold">{t.name}</td>
                                         <td>{t.location}</td>
                                         <td className="text-truncate" style={{ maxWidth: 300 }}>{t.content}</td>
-                                        <td>{t.productId}</td>
-                                        <td className="text-end">
-                                            <Link href={`/dashboard/testimonials/${t.id}`} className="btn btn-outline-secondary btn-sm me-2">
+                                        <td>{t.productId && <Badge bg="light" text="dark" className="border fw-normal">{t.productId}</Badge>}</td>
+                                        <td className="text-end text-nowrap">
+                                            <Link href={`/dashboard/testimonials/${t.id}`} className="btn btn-outline-primary btn-sm me-2">
                                                 Edit
                                             </Link>
                                             <DeleteButton url={`/api/admin/testimonials/${t.id}`} confirmText={`Delete testimonial from "${t.name}"?`} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+import { FaPlus, FaBoxOpen } from 'react-icons/fa';
 import { listProducts } from '@/lib/db';
 import DeleteProductButton from '@/components/admin/DeleteProductButton';
 
@@ -13,14 +14,17 @@ export default async function ProductsPage() {
         <div>
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="fw-bold mb-0">Manage Products</h2>
-                <Link href="/dashboard/products/new">
-                    <Button variant="success" className="rounded-pill fw-bold">+ New Product</Button>
+                <Link href="/dashboard/products/new" className="btn btn-success rounded-pill fw-bold d-inline-flex align-items-center gap-2">
+                    <FaPlus size={12} /> New Product
                 </Link>
             </div>
 
             <Card className="border-0 shadow-sm rounded-4 p-4">
                 {products.length === 0 ? (
-                    <p className="text-muted mb-0">No products yet.</p>
+                    <div className="text-center text-muted py-5">
+                        <FaBoxOpen size={40} className="opacity-25 mb-3" />
+                        <p className="mb-0">No products yet. Add your first one to get started.</p>
+                    </div>
                 ) : (
                     <div className="table-responsive">
                         <table className="table align-middle">
@@ -44,8 +48,11 @@ export default async function ProductsPage() {
                                         <td className="fw-bold">{p.name}</td>
                                         <td>{p.category}</td>
                                         <td>{p.price}</td>
-                                        <td className="text-end">
-                                            <Link href={`/dashboard/products/${p.id}`} className="btn btn-outline-secondary btn-sm me-2">
+                                        <td className="text-end text-nowrap">
+                                            <Link href={`/product/${p.id}`} target="_blank" className="btn btn-outline-secondary btn-sm me-2">
+                                                View
+                                            </Link>
+                                            <Link href={`/dashboard/products/${p.id}`} className="btn btn-outline-primary btn-sm me-2">
                                                 Edit
                                             </Link>
                                             <DeleteProductButton id={p.id} />
