@@ -17,9 +17,7 @@
         "enabled": true
     },
     "vars": {
-        "NEXT_PUBLIC_BASE_URL": "https://herbalicious-shop.com",
-        "CF_ACCESS_TEAM_DOMAIN": "",
-        "CF_ACCESS_AUD": ""
+        "NEXT_PUBLIC_BASE_URL": "https://herbalicious-shop.com"
     },
     "d1_databases": [
         {

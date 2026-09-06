@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import LogoutButton from '@/components/admin/LogoutButton';
 
 export default function DashboardLayout({
     children,
@@ -32,6 +33,9 @@ export default function DashboardLayout({
                                 <Link href="/" className="nav-link text-primary">
                                     View Site
                                 </Link>
+                            </li>
+                            <li className="nav-item mt-2">
+                                <LogoutButton />
                             </li>
                         </ul>
                     </div>

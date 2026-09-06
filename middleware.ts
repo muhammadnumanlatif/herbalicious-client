@@ -1,58 +1,30 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { jwtVerify, createRemoteJWKSet } from 'jose';
+import { verifySessionToken } from '@/lib/auth';
 
-// Cloudflare Access protects /dashboard and /api/admin at the edge (its own
-// login page, before the request ever reaches this Worker). This middleware
-// is defense-in-depth: it verifies the Access JWT itself, so the routes stay
-// protected even if the Access application were ever misconfigured or removed.
-let jwks: ReturnType<typeof createRemoteJWKSet> | null = null;
-
-async function verifyAccessJwt(request: NextRequest): Promise<string | null> {
-    const teamDomain = process.env.CF_ACCESS_TEAM_DOMAIN;
-    const aud = process.env.CF_ACCESS_AUD;
-    if (!teamDomain || !aud) return null;
-
-    const token =
-        request.headers.get('cf-access-jwt-assertion') ||
-        request.cookies.get('CF_Authorization')?.value;
-    if (!token) return null;
-
-    try {
-        if (!jwks) {
-            jwks = createRemoteJWKSet(new URL(`${teamDomain}/cdn-cgi/access/certs`));
-        }
-        const { payload } = await jwtVerify(token, jwks, {
-            issuer: teamDomain,
-            audience: aud,
-        });
-        return typeof payload.email === 'string' ? payload.email : 'authenticated';
-    } catch {
-        return null;
-    }
-}
+const PUBLIC_PATHS = ['/dashboard/login', '/api/admin/login'];
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
+    const isProtected = pathname.startsWith('/dashboard') || pathname.startsWith('/api/admin');
+    const isPublic = PUBLIC_PATHS.some((p) => pathname === p);
 
-    if (pathname.startsWith('/dashboard') || pathname.startsWith('/api/admin')) {
-        const teamDomain = process.env.CF_ACCESS_TEAM_DOMAIN;
-        const aud = process.env.CF_ACCESS_AUD;
-
-        // Fail closed: until Cloudflare Access is wired up (team domain + AUD
-        // set), these routes are not exposed rather than left unauthenticated.
-        if (!teamDomain || !aud) {
+    if (isProtected && !isPublic) {
+        const secret = process.env.SESSION_SECRET;
+        if (!secret) {
             return new NextResponse('Admin access is not yet configured.', { status: 503 });
         }
 
-        const email = await verifyAccessJwt(request);
-        if (!email) {
-            return new NextResponse('Unauthorized', { status: 403 });
-        }
+        const token = request.cookies.get('admin_session')?.value;
+        const valid = await verifySessionToken(token, secret);
 
-        const response = NextResponse.next();
-        response.headers.set('x-admin-email', email);
-        return response;
+        if (!valid) {
+            if (pathname.startsWith('/api/admin')) {
+                return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            }
+            const loginUrl = new URL('/dashboard/login', request.url);
+            return NextResponse.redirect(loginUrl);
+        }
     }
 
     return NextResponse.next();
